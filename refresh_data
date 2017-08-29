@@ -1,0 +1,115 @@
+#!/usr/bin/python3
+
+import os
+import subprocess
+import sys
+
+# https://en.wikipedia.org/wiki/ISO_3166-1
+LOCATIONS = [
+  ##"Amsterdam|NL",
+  "Bangkok|TH",
+  "Beijing|CN",
+  "Delhi|IN",
+  "Karachi|PK",
+  "New York|US",
+  "Paris|FR",
+  "San Francisco|US",
+  "Shanghai|CN",
+  "Tokyo|JP",
+]
+
+MIN_COMPLETION_RATIO = "0.9999999999"
+DATA_FILE = "data.txt"
+DREMEL_TEMPLATE = (
+'SELECT Date, Location, Min_C, Mean_C, Max_C, Rain, Snow '
+#'SELECT Date, Location, Min_C, Mean_C, Max_C, Min_H, Mean_H, Max_H, Rain, Snow '
+'FROM '
+'  (SELECT date as Date, '
+'    station_id as StationId, '
+'    temp_c_min as Min_C, '
+'    temp_c_mean as Mean_C, '
+'    temp_c_max as Max_C, '
+#'    humidity_pct_min as Min_H, '
+#'    humidity_pct_mean as Mean_H, '
+#'    humidity_pct_max as Max_H, '
+'    rainfall_mm as Rain, '
+'    snowfall_mm as Snow '
+'  FROM '
+'    weather.historical.daily '
+'  WHERE '
+'    (date >= "%s") AND '
+'    temp_c_max != -9999) AS W '
+'JOIN '
+'  (SELECT '
+'    id as Id, '
+'    CONCAT(geo.locality_name, ", ", geo.subdivision_1_name, ", ", geo.region_code) as Location '
+'  FROM '
+'    weather.stations '
+'  WHERE '
+'    geo.locality_name = "%s" AND '
+'    geo.region_code = "%s") AS S '
+'ON W.StationId = S.Id '
+'ORDER BY Date;')
+
+if os.path.exists(DATA_FILE):
+  print("'" + DATA_FILE + "' already exists, I won't clobber it.")
+  sys.exit(-1)
+f = open("data.txt", "w")
+master_data = {}
+start_year = 2007
+end_year = 2016
+all_years_str = [str(y) for y in range(start_year, end_year + 1)]
+start_date = str(start_year) + "0101"
+for location in LOCATIONS:
+  (place, region_code) = location.split("|")
+  if place not in master_data:
+    master_data[place] = {}
+  print("Getting data for " + place + ", " + region_code + "...")
+  command = ["echo", "'" + (DREMEL_TEMPLATE % (start_date, place, region_code)) + "'"]
+  echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
+  output = subprocess.check_output([
+      'dremel',
+      "--min_completion_ratio=" + MIN_COMPLETION_RATIO,
+      "--sql_dialect=GoogleSQL",
+      ], stdin=echo_ps.stdout, universal_newlines=True)
+  echo_ps.wait()
+  lines = output.split("\n")
+  data = {}
+  for line in lines:
+    parts = line.split("|")
+    if len(parts) > 5:
+      date = parts[1].strip()
+      if date.startswith("2"):
+        year = int(date[:4])
+        month = int(date[4:6])
+        day = int(date[6:8])
+        month_half = str(month) + "-" + ("1" if day < 15 else "2")
+        temp_min = float(parts[3].strip())
+        temp_average = float(parts[4].strip())
+        temp_max = float(parts[5].strip())
+        if str(year) not in data:
+          data[str(year)] = {}
+        if month_half not in data[str(year)]:
+          data[str(year)][month_half] = []
+        data[str(year)][month_half].append([temp_min, temp_average, temp_max])
+  for year in all_years_str:
+    master_data[place][year] = {}
+    for month in range(1, 13):
+      for suff in range(1, 3):
+        month_half = str(month) + "-" + str(suff)
+        if year in data and month_half in data[year]:
+          arr = data[year][month_half]
+          temp_averages = [float(p[1]) for p in arr if p != -9999]
+          temp_average = int(round(float(sum(temp_averages)) / max(len(temp_averages), 1)))
+          master_data[place][year][month_half] = []
+          master_data[place][year][month_half].append(temp_average)
+  # Done with this location
+  if len(master_data[place]) != end_year - start_year + 1:
+    print("Warning: only got " + str(len(master_data[place])) + \
+        " years for " + place)
+  for y in all_years_str:
+    if len(master_data[place][y]) != 24:
+      print("Warning: only got " + str(len(master_data[place][y])) + \
+          " half-months for " + place + " in " + y)
+f.write(str(master_data))
+print("All done.")
