@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import json
 import os
 import subprocess
 import sys
@@ -111,5 +112,5 @@ for location in LOCATIONS:
     if len(master_data[place][y]) != 24:
       print("Warning: only got " + str(len(master_data[place][y])) + \
           " half-months for " + place + " in " + y)
-f.write(str(master_data))
+f.write(json.dumps(master_data))
 print("All done.")
