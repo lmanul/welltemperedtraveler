@@ -1,0 +1,23 @@
+<html>
+<head>
+  <title>World Weather</title>
+  <script>
+    function loadData() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          var data = JSON.parse(xhr.responseText);
+          console.log(data);
+        }
+      }
+      xhr.open('GET', 'data.txt', true);
+      xhr.send(null);
+    }
+  </script>
+</head>
+
+<body onload="loadData();">
+<h1>World Weather</h1>
+
+</body>
+</html>
