@@ -1,23 +1,71 @@
 <html>
 <head>
   <title>World Weather</title>
+  <style>
+    /* Header */
+    .h {
+      overflow: hidden;
+      width: 100px;
+    }
+    /* Cell */
+    .c {
+      padding: 3px;
+      width: 25px;
+    }
+    .h, .c {
+      display: inline-block;
+    }
+  </style>
   <script>
+    var cities = [];
+    var data;
+
     function loadData() {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          var data = JSON.parse(xhr.responseText);
-          console.log(data);
+          data = JSON.parse(xhr.responseText);
+          processData(data);
         }
       }
       xhr.open('GET', 'data.txt', true);
       xhr.send(null);
     }
+
+    function processData(data) {
+      for (city in data) {
+        cities.push(city);
+        console.log(data[city]);
+      }
+      cities.sort();
+      for (var i = 0, city; city = cities[i]; i++) {
+        showSingleCity(city);
+      }
+    }
+
+    function showSingleCity(city) {
+      var line = document.createElement('div');
+      var cityName = document.createElement('div');
+      line.className = 'l';
+      cityName.textContent = city;
+      cityName.className = 'h';
+      line.appendChild(cityName);
+      for (halfMonth in data[city]) {
+        var cell = document.createElement('div');
+        cell.textContent = data[city][halfMonth];
+        cell.className = 'c';
+        line.appendChild(cell);
+      }
+      document.getElementById('t').appendChild(line);
+    }
+
   </script>
 </head>
 
 <body onload="loadData();">
 <h1>World Weather</h1>
+
+<div id="t"></div>
 
 </body>
 </html>
