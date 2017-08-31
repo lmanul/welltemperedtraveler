@@ -93,24 +93,22 @@ for location in LOCATIONS:
         if month_half not in data[str(year)]:
           data[str(year)][month_half] = []
         data[str(year)][month_half].append([temp_min, temp_average, temp_max])
-  for year in all_years_str:
-    master_data[place][year] = {}
-    for month in range(1, 13):
-      for suff in range(1, 3):
-        month_half = str(month) + "-" + str(suff)
-        if year in data and month_half in data[year]:
-          arr = data[year][month_half]
-          temp_averages = [float(p[1]) for p in arr if p != -9999]
-          temp_average = int(round(float(sum(temp_averages)) / max(len(temp_averages), 1)))
-          master_data[place][year][month_half] = []
-          master_data[place][year][month_half].append(temp_average)
+  if len(data) != end_year - start_year + 1:
+    print("Warning: got " + str(len(data)) + " years for " + place)
+
+  for month in range(1, 13):
+    for suff in range(1, 3):
+      month_half = str(month) + "-" + str(suff)
+      for y in all_years_str:
+        if y in data and month_half in data[y]:
+          arr = [float(p[1]) for p in data[y][month_half] if p != -9999]
+          temp_average = int(round(float(sum(arr)) / max(len(arr), 1)))
+          master_data[place][month_half] = []
+          master_data[place][month_half].append(temp_average)
   # Done with this location
-  if len(master_data[place]) != end_year - start_year + 1:
-    print("Warning: only got " + str(len(master_data[place])) + \
-        " years for " + place)
   for y in all_years_str:
-    if len(master_data[place][y]) != 24:
-      print("Warning: only got " + str(len(master_data[place][y])) + \
-          " half-months for " + place + " in " + y)
+    if len(master_data[place]) != 24:
+      print("Warning: only got " + str(len(master_data[place])) + \
+          " half-months for " + place)
 f.write(json.dumps(master_data))
 print("All done.")
