@@ -7,15 +7,26 @@ import sys
 
 # https://en.wikipedia.org/wiki/ISO_3166-1
 LOCATIONS = [
-  ##"Amsterdam|NL",
+  # https://en.wikipedia.org/wiki/List_of_cities_proper_by_population
+  # Next: 14
+  "Amsterdam|NL",
   "Bangkok|TH",
   "Beijing|CN",
   "Delhi|IN",
+  "Guangzhou|CN",
+  "Istanbul|TR",
   "Karachi|PK",
+  "Lahore|PK",
+  "Lagos|NG",
+  "Moscow|RU",
+  "Mumbai|IN",
   "New York|US",
   "Paris|FR",
   "San Francisco|US",
+  "São Paulo|BR",
   "Shanghai|CN",
+  "Shenzhen|CN",
+  "Tianjin|CN",
   "Tokyo|JP",
 ]
 
