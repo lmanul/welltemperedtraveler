@@ -2,23 +2,48 @@
 <head>
   <title>World Weather</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    /* Table */
+    .t {
+      margin: 0 auto;
+      width: 850px;
+    }
     /* Header */
-    .h {
+    .lh {
       overflow: hidden;
       width: 100px;
+    }
+    /* Line */
+    .l {
+      border-bottom: 1px solid #ccc;
     }
     /* Cell */
     .c {
       padding: 3px;
       width: 25px;
     }
-    .h, .c {
+    .c.e {
+      border-right: 1px solid #ccc;
+    }
+    .ch, .lh, .c {
       display: inline-block;
+    }
+    .ch {
+      width: 50px;
     }
   </style>
   <script>
     var cities = [];
     var data;
+    var localMonthNames = [];
+    for (var i = 1; i < 13; i++) {
+      localMonthNames.push(
+        new Date('2000.' + i + '.01').toLocaleString(
+          window.navigator.language, { month: "short" }
+      ));
+    }
 
     function loadData() {
       var xhr = new XMLHttpRequest();
@@ -33,6 +58,7 @@
     }
 
     function processData(data) {
+      showColumnHeaders();
       for (city in data) {
         cities.push(city);
         console.log(data[city]);
@@ -43,18 +69,35 @@
       }
     }
 
+    function showColumnHeaders() {
+      var table = document.getElementById('t');
+      var colHeaders = document.createElement('div');
+      var pivot = document.createElement('div');
+      pivot.className = 'lh';
+      colHeaders.appendChild(pivot);
+      for (var i = 0; i < 12; i++) {
+        var colHeader = document.createElement('div');
+        colHeader.textContent = localMonthNames[i];
+        colHeader.className = 'ch';
+        colHeaders.appendChild(colHeader);
+      }
+      table.appendChild(colHeaders);
+    }
+
     function showSingleCity(city) {
       var line = document.createElement('div');
       var cityName = document.createElement('div');
       line.className = 'l';
       cityName.textContent = city;
-      cityName.className = 'h';
+      cityName.className = 'lh';
       line.appendChild(cityName);
+      var i = 0;
       for (halfMonth in data[city]) {
         var cell = document.createElement('div');
         cell.textContent = data[city][halfMonth];
-        cell.className = 'c';
+        cell.className = 'c ' + (i % 2 == 0 ? 's' : 'e');
         line.appendChild(cell);
+        i++;
       }
       document.getElementById('t').appendChild(line);
     }
