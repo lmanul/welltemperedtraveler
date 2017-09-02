@@ -34,6 +34,9 @@
     .ch, .lh, .c {
       display: inline-block;
     }
+    .lh, .c {
+      vertical-align: middle;
+    }
     .ch {
       border-bottom: 1px solid #ccc;
       font-weight: bold;
@@ -92,6 +95,15 @@
       table.appendChild(colHeaders);
     }
 
+    function showSingleCell(city, halfMonth, oddNumberCell, container) {
+      var average_temperature = data[city][halfMonth];
+      var cell = document.createElement('div');
+      cell.textContent = average_temperature;
+      cell.className = 'c ' + (oddNumberCell ? 's' : 'e');
+      cell.style.backgroundColor = getCellColor(parseInt(average_temperature));
+      container.appendChild(cell);
+    }
+
     function showSingleCity(city) {
       var line = document.createElement('div');
       var cityName = document.createElement('div');
@@ -100,14 +112,13 @@
       cityName.className = 'lh';
       line.appendChild(cityName);
       var i = 0;
+      for (var month = 1; month < 13; month++) {
+        for (var suffix = 1; suffix < 3; suffix++) {
+          showSingleCell(city, '' + month + '-' + suffix, i % 2 == 0, line);
+          i++;
+        }
+      }
       for (halfMonth in data[city]) {
-        var cell = document.createElement('div');
-        var average_temperature = data[city][halfMonth];
-        cell.textContent = average_temperature;
-        cell.className = 'c ' + (i % 2 == 0 ? 's' : 'e');
-        cell.style.backgroundColor = getCellColor(parseInt(average_temperature));
-        line.appendChild(cell);
-        i++;
       }
       document.getElementById('t').appendChild(line);
     }
