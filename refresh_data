@@ -5,18 +5,29 @@ import os
 import subprocess
 import sys
 
-DEBUG = True
+DEBUG = False
 # https://en.wikipedia.org/wiki/ISO_3166-1
 LOCATIONS = [
   # https://en.wikipedia.org/wiki/List_of_cities_proper_by_population
-  # Next: 25
+  # Next: 41
   "Amsterdam|NL",
+  "Baghdad|IQ",
   "Bangkok|TH",
   "Beijing|CN",
+  "Bengaluru|IN",
+  "Bogotá|CN",
   "Cairo|EG",
+  "Changsha|CN",
+  "Chennai|IN",
+  "Chongqing|CN",
+  "Dongguan|CN",
   "Delhi|IN",
   "Dhaka|BD",
   "Guangzhou|CN",
+  "Hanoi|VN",
+  "Ho Chi Minh City|VN",
+  "Hong Kong|CN",
+  "Hyderabad|IN",
   "Istanbul|TR",
   "Jakarta|ID",
   "Karachi|PK",
@@ -25,6 +36,8 @@ LOCATIONS = [
   "Lagos|NG",
   "Lima|PE",
   "London|UK",
+  "Nanjing|CN",
+  "Ningbo|CN",
   "Mexico City|MX",
   "Moscow|RU",
   "Mumbai|IN",
@@ -34,13 +47,13 @@ LOCATIONS = [
   "São Paulo|BR",
   "Seoul|KR",
   "Shanghai|CN",
+  "Shenyang|CN",
   "Shenzhen|CN",
+  "Tehran|IR",
   "Tianjin|CN",
   "Tokyo|JP",
   "Wuhan|CN",
 ]
-
-LOCATIONS = ["Beijing|CN"]
 
 MIN_COMPLETION_RATIO = "0.9999999999"
 DATA_FILE = "data.txt"
@@ -127,7 +140,7 @@ for location in LOCATIONS:
     for month in range(1, 13):
         for suff in range(1, 3):
           month_half = str(month) + "-" + str(suff)
-          if DEBUG and month_half in data[y]:
+          if DEBUG and y in data and month_half in data[y]:
             print("Now going to average for " + month_half + " in " + y)
             print(data[y][month_half])
           # "-9999" is code for "no data"
