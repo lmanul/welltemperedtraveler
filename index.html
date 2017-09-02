@@ -2,6 +2,9 @@
 <head>
   <title>World Weather</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
     * {
       box-sizing: border-box;
     }
@@ -21,8 +24,9 @@
     }
     /* Cell */
     .c {
+      height: 35px;
       padding: 3px;
-      width: 25px;
+      width: 35px;
     }
     .c.e {
       border-right: 1px solid #ccc;
@@ -32,9 +36,10 @@
     }
     .ch {
       border-bottom: 1px solid #ccc;
+      font-weight: bold;
       padding: 7px 0;
       text-align: center;
-      width: 50px;
+      width: 70px;
     }
   </style>
   <script>
@@ -97,12 +102,24 @@
       var i = 0;
       for (halfMonth in data[city]) {
         var cell = document.createElement('div');
-        cell.textContent = data[city][halfMonth];
+        var average_temperature = data[city][halfMonth];
+        cell.textContent = average_temperature;
         cell.className = 'c ' + (i % 2 == 0 ? 's' : 'e');
+        cell.style.backgroundColor = getCellColor(parseInt(average_temperature));
         line.appendChild(cell);
         i++;
       }
       document.getElementById('t').appendChild(line);
+    }
+
+    function getCellColor(temperature_average) {
+      if (temperature_average > 26) {
+        return 'rgb(221, 44, 0)';
+      }
+      if (temperature_average < 12) {
+        return 'rgb(0, 169, 255)';
+      }
+      return 'rgb(0, 181, 12)';
     }
 
   </script>
