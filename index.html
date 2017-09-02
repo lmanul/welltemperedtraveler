@@ -71,8 +71,16 @@
     function processData(data) {
       showColumnHeaders();
       for (city in data) {
-        cities.push(city);
-        console.log(data[city]);
+        var cityHasData = false;
+        for (var halfMonth in data[city]) {
+          if (data[city][halfMonth][0] != 0) {
+            cityHasData = true;
+            break;
+          }
+        }
+        if (cityHasData) {
+          cities.push(city);
+        }
       }
       cities.sort();
       for (var i = 0, city; city = cities[i]; i++) {
@@ -122,6 +130,15 @@
       }
       document.getElementById('t').appendChild(line);
     }
+
+    // Hellish 219, 29, 0  -- dark red
+    // Very hot 255, 0, 34 -- red
+    // A bit too warm 255, 140, 0 -- orange
+    // Warm 255, 255, 0 -- yellow
+    // Comfy 3, 186, 0 -- green
+    // Chilly 5, 255, 217 -- turquoise
+    // Cold 0, 167, 239 -- blue
+    // Freezing 0, 78, 234 -- darker blue
 
     function getCellColor(temperature_average) {
       if (temperature_average > 26) {
