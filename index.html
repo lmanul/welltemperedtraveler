@@ -110,6 +110,15 @@
         }
         showSingleCity(city);
       }
+      setupListeners();
+    }
+
+    function setupListeners() {
+      document.getElementById('t').addEventListener('mouseover', function(e) {
+        var cell = document.elementFromPoint(e.clientX, e.clientY);
+        var tmpAvg = cell.getAttribute('tmp-avg');
+        console.log(tmpAvg);
+      });
     }
 
     function showColumnHeaders() {
@@ -133,9 +142,9 @@
           container) {
       var average_temperature = data[city][halfMonth];
       var cell = document.createElement('div');
-      cell.title = average_temperature;
       cell.classList.add('c');
       cell.classList.add(oddNumberCell ? 's' : 'e');
+      cell.setAttribute('tmp-avg', '' + average_temperature);
       if (firstCell) {
         cell.classList.add('f');
       }
