@@ -16,7 +16,11 @@
     /* Header */
     .lh {
       overflow: hidden;
-      width: 100px;
+      text-overflow: ellipsis;
+      width: 120px;
+    }
+    .lh span {
+      white-space: nowrap;
     }
     /* Line */
     .l {
@@ -69,7 +73,6 @@
     }
 
     function processData(data) {
-      showColumnHeaders();
       for (city in data) {
         var cityHasData = false;
         for (var halfMonth in data[city]) {
@@ -84,6 +87,9 @@
       }
       cities.sort();
       for (var i = 0, city; city = cities[i]; i++) {
+        if (i % 10 == 0) {
+          showColumnHeaders();
+        }
         showSingleCity(city);
       }
     }
@@ -114,11 +120,13 @@
 
     function showSingleCity(city) {
       var line = document.createElement('div');
-      var cityName = document.createElement('div');
+      var cityNameHeader = document.createElement('div');
+      var cityNameSpan = document.createElement('span');
       line.className = 'l';
-      cityName.textContent = city;
-      cityName.className = 'lh';
-      line.appendChild(cityName);
+      cityNameSpan.textContent = city;
+      cityNameHeader.className = 'lh';
+      cityNameHeader.appendChild(cityNameSpan);
+      line.appendChild(cityNameHeader);
       var i = 0;
       for (var month = 1; month < 13; month++) {
         for (var suffix = 1; suffix < 3; suffix++) {
@@ -131,26 +139,16 @@
       document.getElementById('t').appendChild(line);
     }
 
-    // Inhumanely cold 157, 0, 255 -- purple
-    // Freezing 0, 78, 234 -- darker blue
-    // Cold 0, 167, 239 -- blue
-    // Chilly 5, 255, 217 -- turquoise
-    // Comfy 3, 186, 0 -- green
-    // Warm 255, 255, 0 -- yellow
-    // A bit too warm 255, 140, 0 -- orange
-    // Very hot 255, 0, 34 -- red
-    // Hellish 219, 29, 0  -- dark red
-
     COLORS = [
-      [-12, [157, 0, 255]],  // Inhumanely Cold
-      [-5, [0, 78, 234]],    // Freezing
-      [5, [0, 167, 239]],    // Cold
-      [12, [5, 255, 217]],   // Chilly
-      [22, [3, 186, 0]],     // Comfy
-      [26, [255, 255, 0]],   // Warm
-      [28, [255, 140, 0]],   // A bit too warm
-      [32, [255, 0, 34]],    // Very hot
-      [37, [219, 29, 0]],    // Hellish
+      [-12, [157, 0, 255]],  // Inhumanely Cold, purple
+      [-5, [0, 78, 234]],    // Freezing, dark blue
+      [5, [0, 167, 239]],    // Cold, blue
+      [12, [5, 255, 217]],   // Chilly, turquoise
+      [22, [3, 186, 0]],     // Comfy, green
+      [26, [255, 255, 0]],   // Warm, yellow
+      [28, [255, 140, 0]],   // A bit too warm, orange
+      [32, [255, 0, 34]],    // Very hot, red
+      [37, [219, 29, 0]],    // Hellish, dark red
     ]
 
     function cssColorFromTuple(tuple) {
