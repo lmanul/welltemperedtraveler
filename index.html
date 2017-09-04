@@ -131,23 +131,55 @@
       document.getElementById('t').appendChild(line);
     }
 
-    // Hellish 219, 29, 0  -- dark red
-    // Very hot 255, 0, 34 -- red
-    // A bit too warm 255, 140, 0 -- orange
-    // Warm 255, 255, 0 -- yellow
-    // Comfy 3, 186, 0 -- green
-    // Chilly 5, 255, 217 -- turquoise
-    // Cold 0, 167, 239 -- blue
+    // Inhumanely cold 157, 0, 255 -- purple
     // Freezing 0, 78, 234 -- darker blue
+    // Cold 0, 167, 239 -- blue
+    // Chilly 5, 255, 217 -- turquoise
+    // Comfy 3, 186, 0 -- green
+    // Warm 255, 255, 0 -- yellow
+    // A bit too warm 255, 140, 0 -- orange
+    // Very hot 255, 0, 34 -- red
+    // Hellish 219, 29, 0  -- dark red
 
-    function getCellColor(temperature_average) {
-      if (temperature_average > 26) {
-        return 'rgb(221, 44, 0)';
+    COLORS = [
+      [-12, [157, 0, 255]],  // Inhumanely Cold
+      [-5, [0, 78, 234]],    // Freezing
+      [5, [0, 167, 239]],    // Cold
+      [12, [5, 255, 217]],   // Chilly
+      [22, [3, 186, 0]],     // Comfy
+      [26, [255, 255, 0]],   // Warm
+      [28, [255, 140, 0]],   // A bit too warm
+      [32, [255, 0, 34]],    // Very hot
+      [37, [219, 29, 0]],    // Hellish
+    ]
+
+    function cssColorFromTuple(tuple) {
+      return 'rgb(' + tuple[0] + ', ' + tuple[1] + ',' + tuple[2] + ')';
+    }
+
+    function getCellColor(tmp_avg) {
+      if (tmp_avg <= COLORS[0][0]) {
+        return cssColorFromTuple(COLORS[0][1]);
       }
-      if (temperature_average < 12) {
-        return 'rgb(0, 169, 255)';
+      if (tmp_avg >= COLORS[COLORS.length - 1][0]) {
+        return cssColorFromTuple(COLORS[COLORS.length - 1][1]);
       }
-      return 'rgb(0, 181, 12)';
+      var lowIndex = 0;
+      for (var i = 0, color; color = COLORS[i]; i++) {
+        if (tmp_avg >= color[0] && tmp_avg < COLORS[i + 1][0]) {
+          lowIndex = i;
+          break;
+        }
+      }
+      var fraction = (tmp_avg - COLORS[lowIndex][0]) /
+          (COLORS[lowIndex + 1][0] - COLORS[lowIndex][0]);
+      var targetColor = [];
+      for (var i = 0; i < 3; i++) {
+        var lowValue  = COLORS[lowIndex][1][i];
+        var highValue = COLORS[lowIndex + 1][1][i];
+        targetColor.push(Math.floor(lowValue + fraction * (highValue - lowValue)));
+      }
+      return cssColorFromTuple(targetColor);
     }
 
   </script>
