@@ -8,6 +8,13 @@
     * {
       box-sizing: border-box;
     }
+    /* Pop-up */
+    #popup {
+      background-color: #fff;
+      border: 1px solid #222;
+      padding: 5px;
+      position: absolute;
+    }
     /* Table */
     .t {
       margin: 0 auto;
@@ -116,9 +123,18 @@
     function setupListeners() {
       document.getElementById('t').addEventListener('mouseover', function(e) {
         var cell = document.elementFromPoint(e.clientX, e.clientY);
+        var popup = document.getElementById('popup');
+        if (!cell.hasAttribute('tmp-avg')) {
+          popup.style.display = 'none';
+          return;
+        }
         var tmpAvg = cell.getAttribute('tmp-avg');
-        console.log(tmpAvg);
+        popup.textContent = 'Average: ' + tmpAvg + '°C';
+        popup.style.display = 'inline-block';
+        popup.style.left = e.clientX;
+        popup.style.top = e.clientY;
       });
+      document.getElementById('popup').style.display = 'none';
     }
 
     function showColumnHeaders() {
@@ -210,6 +226,7 @@
 <h1>World Weather</h1>
 
 <div id="t"></div>
+<div id="popup"></div>
 
 </body>
 </html>
