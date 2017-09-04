@@ -13,7 +13,7 @@
       background-color: #fff;
       border: 1px solid #222;
       padding: 5px;
-      position: absolute;
+      position: fixed;
     }
     /* Table */
     .t {
@@ -101,7 +101,7 @@
       for (city in data) {
         var cityHasData = false;
         for (var halfMonth in data[city]) {
-          if (data[city][halfMonth][0] != 0) {
+          if (data[city][halfMonth][1] != 0) {
             cityHasData = true;
             break;
           }
@@ -128,11 +128,14 @@
           popup.style.display = 'none';
           return;
         }
+        var tmpMin = cell.getAttribute('tmp-min');
         var tmpAvg = cell.getAttribute('tmp-avg');
-        popup.textContent = 'Average: ' + tmpAvg + '°C';
+        var tmpMax = cell.getAttribute('tmp-max');
+        popup.innerHTML = 'Min: ' + tmpMin + '°C<br>Mean: ' +
+            tmpAvg + '°C<br>Max: ' + tmpMax + '°C';
         popup.style.display = 'inline-block';
-        popup.style.left = e.clientX;
-        popup.style.top = e.clientY;
+        popup.style.left = e.clientX + 20;
+        popup.style.top = e.clientY + 20;
       });
       document.getElementById('popup').style.display = 'none';
     }
@@ -156,11 +159,16 @@
 
     function showSingleCell(city, halfMonth, oddNumberCell, firstCell,
           container) {
-      var average_temperature = data[city][halfMonth];
+      var tmps = data[city][halfMonth];
+      var minTmp = tmps[0];
+      var average_temperature = tmps[1];
+      var maxTmp = tmps[2];
       var cell = document.createElement('div');
       cell.classList.add('c');
       cell.classList.add(oddNumberCell ? 's' : 'e');
+      cell.setAttribute('tmp-min', '' + minTmp);
       cell.setAttribute('tmp-avg', '' + average_temperature);
+      cell.setAttribute('tmp-max', '' + maxTmp);
       if (firstCell) {
         cell.classList.add('f');
       }
