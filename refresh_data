@@ -145,27 +145,39 @@ for location in LOCATIONS:
             print(data[y][month_half])
           # "-9999" is code for "no data"
           if y in data and month_half in data[y]:
+            array_of_min_tmps = [float(p[0]) for p in data[y][month_half] if p[0] > -1000]
             array_of_average_temps = [float(p[1]) for p in data[y][month_half] if p[1] > -1000]
+            array_of_max_tmps = [float(p[2]) for p in data[y][month_half] if p[2] > -1000]
+            max_temp_for_this_half_month = int(round(float(max(array_of_max_tmps))))
             average_temp_for_this_half_month = \
                 int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
-            data[y][month_half] = [0, average_temp_for_this_half_month, 100]
+            min_temp_for_this_half_month = int(round(float(min(array_of_min_tmps))))
+            data[y][month_half] = [min_temp_for_this_half_month, average_temp_for_this_half_month, max_temp_for_this_half_month]
 
   for month in range(1, 13):
     for suff in range(1, 3):
       month_half = str(month) + "-" + str(suff)
       # Now we need to average everything corresponding to this half-month for
       # all our available years.
+      array_of_min_temps = []
       array_of_average_temps = []
+      array_of_max_temps = []
       for y in all_years_str:
         if y in data and month_half in data[y]:
+          array_of_min_temps.append(data[y][month_half][0])
           array_of_average_temps.append(data[y][month_half][1])
+          array_of_max_temps.append(data[y][month_half][2])
 
       if DEBUG:
         print("Averaging the following for " + month_half + " across all years:")
         print(array_of_average_temps)
+      min_temp_average = \
+          int(round(float(sum(array_of_min_temps)) / max(len(array_of_min_temps), 1)))
       temp_average = \
           int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
-      master_data[place][month_half] = [temp_average]
+      max_temp_average = \
+          int(round(float(sum(array_of_max_temps)) / max(len(array_of_max_temps), 1)))
+      master_data[place][month_half] = [min_temp_average, temp_average, max_temp_average]
   # Done with this location
   for y in all_years_str:
     if len(master_data[place]) != 24:
