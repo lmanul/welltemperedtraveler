@@ -24,7 +24,8 @@
     }
     /* Line */
     .l {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #555;
+      display: inline-block;
     }
     /* Cell */
     .c {
@@ -32,8 +33,14 @@
       padding: 3px;
       width: 35px;
     }
+    .p.lh {
+      color: #888;
+    }
     .c.e {
-      border-right: 1px solid #ccc;
+      border-right: 1px solid #555;
+    }
+    .c.f {
+      border-left: 1px solid #555;
     }
     .ch, .lh, .c {
       display: inline-block;
@@ -42,7 +49,7 @@
       vertical-align: middle;
     }
     .ch {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #555;
       font-weight: bold;
       padding: 7px 0;
       text-align: center;
@@ -50,6 +57,17 @@
     }
   </style>
   <script>
+  COLORS = [
+    [-12, [157, 0, 255]],  // Inhumanely Cold, purple
+    [-5, [0, 78, 234]],    // Freezing, dark blue
+    [5, [0, 167, 239]],    // Cold, blue
+    [12, [5, 255, 217]],   // Chilly, turquoise
+    [22, [3, 186, 0]],     // Comfy, green
+    [26, [255, 255, 0]],   // Warm, yellow
+    [28, [255, 140, 0]],   // A bit too warm, orange
+    [32, [255, 0, 34]],    // Very hot, red
+    [37, [219, 29, 0]],    // Hellish, dark red
+  ]
     var cities = [];
     var data;
     var localMonthNames = [];
@@ -98,22 +116,29 @@
       var table = document.getElementById('t');
       var colHeaders = document.createElement('div');
       var pivot = document.createElement('div');
-      pivot.className = 'lh';
+      pivot.classList.add('lh');
+      pivot.classList.add('p');
+      pivot.textContent = 'Cities';
       colHeaders.appendChild(pivot);
       for (var i = 0; i < 12; i++) {
         var colHeader = document.createElement('div');
         colHeader.textContent = localMonthNames[i];
-        colHeader.className = 'ch';
+        colHeader.classList.add('ch');
         colHeaders.appendChild(colHeader);
       }
       table.appendChild(colHeaders);
     }
 
-    function showSingleCell(city, halfMonth, oddNumberCell, container) {
+    function showSingleCell(city, halfMonth, oddNumberCell, firstCell,
+          container) {
       var average_temperature = data[city][halfMonth];
       var cell = document.createElement('div');
-      cell.textContent = average_temperature;
-      cell.className = 'c ' + (oddNumberCell ? 's' : 'e');
+      cell.title = average_temperature;
+      cell.classList.add('c');
+      cell.classList.add(oddNumberCell ? 's' : 'e');
+      if (firstCell) {
+        cell.classList.add('f');
+      }
       cell.style.backgroundColor = getCellColor(parseInt(average_temperature));
       container.appendChild(cell);
     }
@@ -130,7 +155,8 @@
       var i = 0;
       for (var month = 1; month < 13; month++) {
         for (var suffix = 1; suffix < 3; suffix++) {
-          showSingleCell(city, '' + month + '-' + suffix, i % 2 == 0, line);
+          showSingleCell(
+            city, '' + month + '-' + suffix, i % 2 == 0, i == 0, line);
           i++;
         }
       }
@@ -138,18 +164,6 @@
       }
       document.getElementById('t').appendChild(line);
     }
-
-    COLORS = [
-      [-12, [157, 0, 255]],  // Inhumanely Cold, purple
-      [-5, [0, 78, 234]],    // Freezing, dark blue
-      [5, [0, 167, 239]],    // Cold, blue
-      [12, [5, 255, 217]],   // Chilly, turquoise
-      [22, [3, 186, 0]],     // Comfy, green
-      [26, [255, 255, 0]],   // Warm, yellow
-      [28, [255, 140, 0]],   // A bit too warm, orange
-      [32, [255, 0, 34]],    // Very hot, red
-      [37, [219, 29, 0]],    // Hellish, dark red
-    ]
 
     function cssColorFromTuple(tuple) {
       return 'rgb(' + tuple[0] + ', ' + tuple[1] + ',' + tuple[2] + ')';
