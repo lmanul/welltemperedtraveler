@@ -36,9 +36,9 @@
     }
     /* Cell */
     .c {
-      height: 35px;
+      height: 40px;
       padding: 3px;
-      width: 35px;
+      width: 40px;
     }
     .p.lh {
       color: #888;
@@ -60,13 +60,13 @@
       font-weight: bold;
       padding: 7px 0;
       text-align: center;
-      width: 70px;
+      width: 80px;
     }
   </style>
   <script>
   COLORS = [
-    [-5, [0, 78, 234]],    // Freezing, dark blue
-    [5, [0, 167, 239]],    // Cold, blue
+    [-8, [0, 78, 234]],    // Freezing, dark blue
+    [3, [0, 167, 239]],    // Cold, blue
     [12, [5, 255, 217]],   // Chilly, turquoise
     [22, [3, 186, 0]],     // Comfy, green
     [26, [255, 255, 0]],   // Warm, yellow
@@ -130,8 +130,10 @@
         var tmpMin = cell.getAttribute('tmp-min');
         var tmpAvg = cell.getAttribute('tmp-avg');
         var tmpMax = cell.getAttribute('tmp-max');
+        var rainfall = cell.getAttribute('rain');
         popup.innerHTML = 'Min: ' + tmpMin + '°C<br>Mean: ' +
-            tmpAvg + '°C<br>Max: ' + tmpMax + '°C';
+            tmpAvg + '°C<br>Max: ' + tmpMax + '°C<br>Avg rainfall: ' +
+            rainfall + '0mm';
         popup.style.display = 'inline-block';
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
@@ -162,12 +164,14 @@
       var minTmp = tmps[0];
       var average_temperature = tmps[1];
       var maxTmp = tmps[2];
+      var rainfall = tmps[3];
       var cell = document.createElement('div');
       cell.classList.add('c');
       cell.classList.add(oddNumberCell ? 's' : 'e');
       cell.setAttribute('tmp-min', '' + minTmp);
       cell.setAttribute('tmp-avg', '' + average_temperature);
       cell.setAttribute('tmp-max', '' + maxTmp);
+      cell.setAttribute('rain', '' + rainfall);
       if (firstCell) {
         cell.classList.add('f');
       }
