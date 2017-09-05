@@ -33,12 +33,20 @@
     .l {
       border-bottom: 1px solid #555;
       display: inline-block;
+      white-space: nowrap;
     }
     /* Cell */
     .c {
       height: 40px;
-      padding: 3px;
+      padding: 7px;
+      text-align: center;
       width: 40px;
+    }
+    /* Rainfall icon */
+    .rf {
+      height: 27px;
+      pointer-events: none;
+      width: 21px;
     }
     .p.lh {
       color: #888;
@@ -56,7 +64,6 @@
       vertical-align: middle;
     }
     .ch {
-      border-bottom: 1px solid #555;
       font-weight: bold;
       padding: 7px 0;
       text-align: center;
@@ -137,6 +144,7 @@
         popup.style.display = 'inline-block';
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
+        return true;
       });
       document.getElementById('popup').style.display = 'none';
     }
@@ -144,6 +152,7 @@
     function showColumnHeaders() {
       var table = document.getElementById('t');
       var colHeaders = document.createElement('div');
+      colHeaders.classList.add('l');
       var pivot = document.createElement('div');
       pivot.classList.add('lh');
       pivot.classList.add('p');
@@ -176,6 +185,11 @@
         cell.classList.add('f');
       }
       cell.style.backgroundColor = getCellColor(parseInt(average_temperature));
+      var rainImage = document.createElement('img');
+      rainImage.classList.add('rf');
+      rainImage.src = 'droplet.png';
+      rainImage.style.opacity = Math.min(1.0, parseInt(rainfall) / 14.0);
+      cell.appendChild(rainImage);
       container.appendChild(cell);
     }
 
