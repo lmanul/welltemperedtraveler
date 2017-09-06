@@ -22,6 +22,17 @@
       font-weight: 100;
       line-height: 32px;
     }
+    #search {
+      display: inline-block;
+      margin: 0 20px;
+    }
+    #search input {
+      font-size: 19px;
+      padding: 5px;
+    }
+    h1, #logo, #search {
+      vertical-align: middle;
+    }
     /* Pop-up */
     #popup {
       background-color: #fff;
@@ -110,10 +121,11 @@
     [22, [3, 186, 0]],     // Comfy, green
     [26, [255, 255, 0]],   // Warm, yellow
     [28, [255, 140, 0]],   // A bit too warm, orange
-    [32, [255, 0, 34]],    // Very hot, red
-    [37, [219, 29, 0]],    // Hellish, dark red
+    [33, [255, 0, 34]],    // Very hot, red
+    [40, [175, 0, 0]],    // Hellish, dark red
   ]
     var cities = [];
+    var filteredCities = [];
     var data;
     var localMonthNames = [];
     for (var i = 1; i < 13; i++) {
@@ -151,14 +163,20 @@
         }
       }
       cities.sort();
-      for (var i = 0, city; city = cities[i]; i++) {
+      filteredCities = cities;
+      showLegend();
+      drawData();
+      setupListeners();
+    }
+
+    function drawData() {
+      document.getElementById('t').innerHTML = '';
+      for (var i = 0, city; city = filteredCities[i]; i++) {
         if (i % 10 == 0) {
           showColumnHeaders();
         }
         showSingleCity(city);
       }
-      showLegend();
-      setupListeners();
     }
 
     function setupListeners() {
@@ -185,6 +203,17 @@
         document.getElementById('popup').style.display = 'none';
       });
       document.getElementById('popup').style.display = 'none';
+      document.getElementById('sb').addEventListener('input', function(e) {
+        var input = e.target.value;
+        filteredCities = [];
+        for (var i = 0, city; city = cities[i]; i++) {
+          if (city.toLowerCase().indexOf(input.toLowerCase()) != -1) {
+            filteredCities.push(city);
+          }
+        }
+        drawData();
+      });
+      document.getElementById('sb').focus();
     }
 
     function showLegend() {
@@ -204,7 +233,6 @@
       var pivot = document.createElement('div');
       pivot.classList.add('lh');
       pivot.classList.add('p');
-      pivot.textContent = 'Cities';
       colHeaders.appendChild(pivot);
       for (var i = 0; i < 12; i++) {
         var colHeader = document.createElement('div');
@@ -297,7 +325,9 @@
 
 <body onload="loadData();">
   <div id="header">
-  <h1><a href="https://google.com"><img src="google.png" style="vertical-align: middle" /></a>&nbsp;&nbsp;World Weather</h1>
+  <h1><a href="https://google.com"><img id="logo" src="google.png" /></a>&nbsp;&nbsp;World Weather</h1>
+
+  <div id="search"><input id="sb"></input></div>
 
   <div id="legend">
     <img src="cold.png" alt="Cold">
@@ -309,8 +339,8 @@
 <div id="popup"></div>
 
 <div id="footer">
-  Made from weather data collected over the past 10 years.
-  <a href="https://www.google.com/intl/en/policies/">Privacy &amp; Terms
+  Made from weather data collected over the past 10
+  years&nbsp;–&nbsp;<a href="https://www.google.com/intl/en/policies/">Privacy &amp; Terms
 </div>
 
 </body>
