@@ -4,12 +4,23 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
     }
     * {
       box-sizing: border-box;
     }
+    #header {
+      background: #f1f1f1;
+      margin-bottom: 10px;
+      padding: 5px 20px;
+      top: 0;
+      width: 100%;
+    }
     h1 {
       display: inline-block;
+      font-size: 27px;
+      font-weight: 100;
+      line-height: 32px;
     }
     /* Pop-up */
     #popup {
@@ -20,9 +31,9 @@
       position: fixed;
     }
     /* Table */
-    .t {
-      margin: 0 auto;
-      width: 850px;
+    #t {
+      margin: 20px auto;
+      width: 1080px; /* 12 * 80 + 120 */
     }
     /* Header */
     .lh {
@@ -86,7 +97,7 @@
     }
     #footer {
       font-size: 12px;
-      margin-top: 25px;
+      margin: 25px 0;
       text-align: center;
     }
   </style>
@@ -284,18 +295,20 @@
 </head>
 
 <body onload="loadData();">
-<h1>World Weather</h1>
+  <div id="header">
+  <h1><a href="https://google.com"><img src="google.png" style="vertical-align: middle" /></a>&nbsp;&nbsp;World Weather</h1>
 
-<div id="legend">
-  <img src="cold.png" alt="Cold">
-  <div id="scale"></div>
-  <img src="hot.png" alt="Hot">
+  <div id="legend">
+    <img src="cold.png" alt="Cold">
+    <div id="scale"></div>
+    <img src="hot.png" alt="Hot">
+  </div>
 </div>
 <div id="t"></div>
 <div id="popup"></div>
 
 <div id="footer">
-  Made from data collected over the past 10 years.
+  Made from weather data collected over the past 10 years.
   <a href="https://www.google.com/intl/en/policies/">Privacy &amp; Terms
 </div>
 
