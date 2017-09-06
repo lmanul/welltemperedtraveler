@@ -8,8 +8,16 @@ import sys
 DEBUG = False
 # https://en.wikipedia.org/wiki/ISO_3166-1
 LOCATIONS = [
+  # https://en.wikipedia.org/wiki/List_of_national_capitals_in_alphabetical_order
+  #
   # https://en.wikipedia.org/wiki/List_of_cities_proper_by_population
   # Next: 41
+  "Abu Dhabi|AE",
+  "Abuja|NG",
+  "Accra|GH",
+  "Adamstown|PN",
+  "Addis Ababa|ET",
+  "Algiers|DZ",
   "Amsterdam|NL",
   "Baghdad|IQ",
   "Bangkok|TH",
