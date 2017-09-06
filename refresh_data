@@ -65,7 +65,7 @@ LOCATIONS = [
   "Wuhan|CN",
 ]
 
-MIN_COMPLETION_RATIO = "0.9999999999"
+MIN_COMPLETION_RATIO = "1.0"
 DATA_FILE = "data.txt"
 DREMEL_TEMPLATE = (
 'SELECT Date, Location, Min_C, Mean_C, Max_C, Rain, Snow '
@@ -112,7 +112,11 @@ for location in LOCATIONS:
   (place, region_code) = location.split("|")
   if place not in master_data:
     master_data[place] = {}
-  print(place + ", " + region_code + "...")
+  buffer = len(place + ", " + region_code)
+  sys.stdout.write(place + ", " + region_code)
+  for i in range(0, 40 - buffer):
+    sys.stdout.write(".")
+  sys.stdout.flush()
   command = ["echo", "'" + (DREMEL_TEMPLATE % (start_date, end_date, place, region_code)) + "'"]
   echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
   output = subprocess.check_output([
@@ -141,8 +145,10 @@ for location in LOCATIONS:
         if month_half not in data[str(year)]:
           data[str(year)][month_half] = []
         data[str(year)][month_half].append([temp_min, temp_average, temp_max, rainfall])
-  if len(data) != end_year - start_year + 1:
-    print("Warning: got " + str(len(data)) + " years for " + place)
+  sys.stdout.write(str(len(data)) + "y\n")
+  sys.stdout.flush()
+  #if len(data) != end_year - start_year + 1:
+  #  print("Warning: got " + str(len(data)) + " years for " + place)
   # Now we have ~15 temperature tuples (min, max, avg) for each half-month of
   # each year.
   # Let's start by reducing all this into one tuple for each half-month of each
@@ -160,10 +166,16 @@ for location in LOCATIONS:
             array_of_average_temps = [float(p[1]) for p in data[y][month_half] if p[1] > -1000]
             array_of_max_tmps = [float(p[2]) for p in data[y][month_half] if p[2] > -1000]
             array_of_rainfall = [float(p[3]) for p in data[y][month_half] if p[3] > -1000]
-            max_temp_for_this_half_month = int(round(float(max(array_of_max_tmps))))
+            if len(array_of_max_tmps) > 0:
+              max_temp_for_this_half_month = int(round(float(max(array_of_max_tmps))))
+            else:
+              max_temp_for_this_half_month = -9999
             average_temp_for_this_half_month = \
                 int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
-            min_temp_for_this_half_month = int(round(float(min(array_of_min_tmps))))
+            if len(array_of_min_tmps) > 0:
+              min_temp_for_this_half_month = int(round(float(min(array_of_min_tmps))))
+            else:
+              min_temp_for_this_half_month = -9999
             average_rainfall_for_this_half_month = \
                 int(round(float(sum(array_of_rainfall)) / max(len(array_of_rainfall), 1)))
             data[y][month_half] = [min_temp_for_this_half_month, average_temp_for_this_half_month, \
