@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="450.04559mm"
+   height="575.67706mm"
+   viewBox="0 0 1594.6497 2039.8006"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="droplet.svg"
+   inkscape:export-filename="/home/manucornet/oss/worldweather/droplet.png"
+   inkscape:export-xdpi="1.1912929"
+   inkscape:export-ydpi="1.1912929">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="382.07923"
+     inkscape:cy="971.03361"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     showguides="false"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="-234.2857,351.42856"
+       orientation="0,1"
+       id="guide4228" />
+    <sodipodi:guide
+       position="-299.99998,1117.1428"
+       orientation="0,1"
+       id="guide4230" />
+    <sodipodi:guide
+       position="782.8571,1334.2857"
+       orientation="1,0"
+       id="guide4232" />
+    <sodipodi:guide
+       position="-825.71424,737.14284"
+       orientation="0,1"
+       id="guide4234" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(63.935478,136.27779)">
+    <path
+       style="fill:#00c1ff;fill-opacity:1;fill-rule:evenodd;stroke:#00427a;stroke-width:71.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 718.9216,34.95144 c 84.23266,467.21351 657.0978,748.10785 662.8572,1131.42856 5.7594,383.3207 -325.7143,608.5714 -660.00005,608.5714 -334.28572,0 -637.142865,-227.4419 -637.142865,-605.7142 0,-378.27237 554.631885,-661.8661 634.285715,-1134.28576 z"
+       id="path4203"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czszc" />
+    <path
+       style="fill:#007cbc;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 430.35017,1643.5229 c 0,0 372.51667,195.5289 685.71433,-60.0001 329.273,-268.6443 148.5714,-614.28567 148.5714,-614.28567 0,0 15.4237,197.14287 -325.71433,477.14287 -323.38603,265.4296 -508.5714,197.1429 -508.5714,197.1429 z"
+       id="path4205"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscsc" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 618.9216,672.09429 c 0,0 -249.76629,147.40691 -291.42857,300.00001 -51.81584,189.7817 122.85714,408.5714 122.85714,408.5714 0,0 -8.48966,-245.6945 28.57142,-394.28566 C 525.87818,798.11411 618.9216,672.09429 618.9216,672.09429 Z"
+       id="path4207"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscsc" />
+  </g>
+</svg>
