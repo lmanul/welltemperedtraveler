@@ -15,7 +15,8 @@
     #popup {
       background-color: #fff;
       border: 1px solid #222;
-      padding: 5px;
+      box-shadow: 15px 15px 23px rgba(0, 0, 0, 0.4);
+      padding: 10px;
       position: fixed;
     }
     /* Table */
@@ -83,6 +84,11 @@
     #scale {
       display: inline-block;
     }
+    #footer {
+      font-size: 12px;
+      margin-top: 25px;
+      text-align: center;
+    }
   </style>
   <script>
   COLORS = [
@@ -118,16 +124,18 @@
     }
 
     function processData(data) {
+      // More than 3 half-months with non-zero temp and we assume we have data.
+      var threshold = 3;
       for (city in data) {
-        var cityHasData = false;
+        var halfMonthsWithData = 0;
         for (var halfMonth in data[city]) {
           if (data[city][halfMonth][1] != 0) {
-            cityHasData = true;
-            break;
+            halfMonthsWithData++;
+            if (halfMonthsWithData >= threshold) {
+              cities.push(city);
+              break;
+            }
           }
-        }
-        if (cityHasData) {
-          cities.push(city);
         }
       }
       cities.sort();
@@ -160,6 +168,9 @@
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
         return true;
+      });
+      document.getElementById('t').addEventListener('mouseout', function() {
+        document.getElementById('popup').style.display = 'none';
       });
       document.getElementById('popup').style.display = 'none';
     }
@@ -282,6 +293,11 @@
 </div>
 <div id="t"></div>
 <div id="popup"></div>
+
+<div id="footer">
+  Made from data collected over the past 10 years.
+  <a href="https://www.google.com/intl/en/policies/">Privacy &amp; Terms
+</div>
 
 </body>
 </html>
