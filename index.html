@@ -8,6 +8,9 @@
     * {
       box-sizing: border-box;
     }
+    h1 {
+      display: inline-block;
+    }
     /* Pop-up */
     #popup {
       background-color: #fff;
@@ -69,6 +72,19 @@
       text-align: center;
       width: 80px;
     }
+    #legend {
+      display: inline-block;
+      position: absolute;
+      right: 17px;
+      top: 22px;
+    }
+    #legend img {
+      height: 50px;
+      vertical-align: middle;
+    }
+    #scale {
+      display: inline-block;
+    }
   </style>
   <script>
   COLORS = [
@@ -123,6 +139,7 @@
         }
         showSingleCity(city);
       }
+      showLegend();
       setupListeners();
     }
 
@@ -147,6 +164,16 @@
         return true;
       });
       document.getElementById('popup').style.display = 'none';
+    }
+
+    function showLegend() {
+      var scale = document.getElementById('scale');
+      for (var i = 0; i < COLORS.length; i++) {
+        var cell = document.createElement('div');
+        cell.classList.add('c');
+        cell.style.backgroundColor = getCellColor(COLORS[i][0]);
+        scale.appendChild(cell);
+      }
     }
 
     function showColumnHeaders() {
@@ -250,6 +277,11 @@
 <body onload="loadData();">
 <h1>World Weather</h1>
 
+<div id="legend">
+  <img src="cold.png" alt="Cold">
+  <div id="scale"></div>
+  <img src="hot.png" alt="Hot">
+</div>
 <div id="t"></div>
 <div id="popup"></div>
 
