@@ -216,9 +216,9 @@
         var tmpAvg = cell.getAttribute('tmp-avg');
         var tmpMax = cell.getAttribute('tmp-max');
         var rainfall = cell.getAttribute('rain');
-        popup.innerHTML = 'Min: ' + tmpMin + '°C<br>Mean: ' +
-            tmpAvg + '°C<br>Max: ' + tmpMax + '°C<br>Avg rainfall: ' +
-            rainfall + '0mm';
+        popup.innerHTML = 'Min: <b>' + tmpMin + '°C</b><br>Mean: <b>' +
+            tmpAvg + '°C</b><br>Max: <b>' + tmpMax + '°C</b><br>Avg ' +
+            'rainfall: <b>' + rainfall + '0mm</b>';
         popup.style.display = 'inline-block';
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
