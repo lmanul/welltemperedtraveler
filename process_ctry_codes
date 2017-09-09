@@ -1,3 +1,21 @@
 #!/usr/bin/python3
 
+import re
 
+input = open("wikipedia_ctry_codes.html", "r").read()
+
+s = input
+s = s.replace("<td", "\n<td")
+s = s.replace("<span", "\n<span")
+
+output = ""
+lines = s.split("\n")
+
+for l in lines:
+  if "<td title" in l and not "unassigned" in l:
+    matches = re.search(r'<td title="([^"]*)".*\#(..)', l)
+    key = matches.group(2)
+    value = matches.group(1)
+    if value != "user-assigned" and "indeterminate" not in value \
+        and "reserved" not in value:
+      print(key + ":" + value)
