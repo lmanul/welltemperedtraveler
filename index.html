@@ -127,6 +127,7 @@
     var cities = [];
     var filteredCities = [];
     var data;
+    var ctryCodes = {};
     var localMonthNames = [];
     for (var i = 1; i < 13; i++) {
       localMonthNames.push(
@@ -145,6 +146,30 @@
       }
       xhr.open('GET', 'data.txt', true);
       xhr.send(null);
+      var CtryXhr = new XMLHttpRequest();
+      CtryXhr.onreadystatechange = function() {
+        if (CtryXhr.readyState == XMLHttpRequest.DONE) {
+          ctryData = CtryXhr.responseText;
+          processCountryData(ctryData);
+        }
+      }
+      CtryXhr.open('GET', 'ctry_codes.txt', true);
+      CtryXhr.send(null);
+    }
+
+    function processCountryData(data) {
+      var lines = data.split('\n');
+      for (var i = 0, line; line = lines[i]; i++) {
+        var parts = line.split(':');
+        ctryCodes[parts[0]] = parts[1];
+      }
+      window.setTimeout(function() {
+        var cityNameSpans = document.getElementsByClassName('lhs');
+        for (var i = 0, span; span = cityNameSpans[i]; i++) {
+          var ctry = span.getAttribute('ctry');
+          span.setAttribute('title', span.textContent + ', ' + ctryCodes[ctry]);
+        }
+      }, 5000);
     }
 
     function processData(data) {
@@ -274,8 +299,11 @@
       var cityNameHeader = document.createElement('div');
       var cityNameSpan = document.createElement('span');
       line.className = 'l';
-      cityNameSpan.textContent = city;
-      cityNameSpan.title = city;
+      var parts = city.split('|');
+      var cityDisplayName = parts[0];
+      cityNameSpan.textContent = cityDisplayName;
+      cityNameSpan.setAttribute('ctry', parts[1]);
+      cityNameSpan.className = 'lhs';
       cityNameHeader.className = 'lh';
       cityNameHeader.appendChild(cityNameSpan);
       line.appendChild(cityNameHeader);
