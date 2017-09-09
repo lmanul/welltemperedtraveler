@@ -41,8 +41,19 @@ LOCATIONS = [
   "Basse-Terre|GP",
   "Basseterre|KN",
   "Beijing|CN",
+  "Beirut|LB",
+  "Belgrade|RS",
+  "Belmopan|BZ",
+  "Berlin|DE",
   "Bengaluru|IN",
+  "Bern|CH",
+  "Bishkek|KG",
+  "Bissau|GW",
   "Bogotá|CO",
+  "Brasilia|BR",
+  "Bratislava|SK",
+  "Brazzaville|CG",
+  "Birdgetown|BB",
   "Cairo|EG",
   "Changsha|CN",
   "Chennai|IN",
@@ -80,6 +91,7 @@ LOCATIONS = [
   "Tianjin|CN",
   "Tokyo|JP",
   "Wuhan|CN",
+  "Zurich|CH",
 ]
 
 MIN_COMPLETION_RATIO = "1.0"
