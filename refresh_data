@@ -140,7 +140,7 @@ end_date = str(end_year) + "1231"
 for location in LOCATIONS:
   (place, region_code) = location.split("|")
   if place not in master_data:
-    master_data[place] = {}
+    master_data[location] = {}
   buffer = len(place + ", " + region_code)
   sys.stdout.write(place + ", " + region_code)
   for i in range(0, 40 - buffer):
@@ -237,11 +237,11 @@ for location in LOCATIONS:
           int(round(float(sum(array_of_max_temps)) / max(len(array_of_max_temps), 1)))
       rainfall_average = \
           int(round(float(sum(array_of_rainfall)) / max(len(array_of_rainfall), 1)))
-      master_data[place][month_half] = [min_temp_average, temp_average, max_temp_average, rainfall_average]
+      master_data[location][month_half] = [min_temp_average, temp_average, max_temp_average, rainfall_average]
   # Done with this location
   for y in all_years_str:
-    if len(master_data[place]) != 24:
-      print("Warning: only got " + str(len(master_data[place])) + \
+    if len(master_data[location]) != 24:
+      print("Warning: only got " + str(len(master_data[location])) + \
           " half-months for " + place)
 f.write(json.dumps(master_data))
 print("All done.")
