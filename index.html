@@ -17,21 +17,25 @@
       width: 100%;
     }
     h1 {
-      display: inline-block;
       font-size: 27px;
       font-weight: 100;
       line-height: 32px;
     }
     #search {
-      display: inline-block;
       margin: 0 20px;
     }
     #search input {
       font-size: 19px;
       padding: 5px;
     }
+    #feedback {
+      margin: 0 10px 0 40px;
+    }
     h1, #logo, #search {
       vertical-align: middle;
+    }
+    h1, #search, #unit_switch, #feedback {
+      display: inline-block;
     }
     /* Pop-up */
     #popup {
@@ -111,6 +115,64 @@
       margin: 25px 0;
       text-align: center;
     }
+
+    /* Slider styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  height: 34px;
+  vertical-align: middle;
+  width: 60px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f00;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
   </style>
   <script>
   COLORS = [
@@ -358,13 +420,24 @@
 
   <div id="search"><input id="sb"></input></div>
 
+  <div id="unit_switch">
+  <span>°F</span>
+  <label class="switch">
+    <input type="checkbox" checked>
+    <span class="slider round"></span>
+  </label>
+  <span>°C</span>
+  </div>
+
+  <div id="feedback"><a target="_new" href="https://docs.google.com/forms/d/e/1FAIpQLSeun4nJuACmJSJGL33qzEpQjFBH5asWOTxlXCOfKxXInuDiyg/viewform?usp=sf_link">Send feedback</a></div>
+
   <div id="legend">
     <img src="cold.png" alt="Cold">
     <div id="scale"></div>
     <img src="hot.png" alt="Hot">
   </div>
 </div>
-<div id="t"></div>
+<div id="t">Loading data...</div>
 <div id="popup"></div>
 
 <div id="footer">
