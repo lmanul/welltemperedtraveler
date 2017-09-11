@@ -1,0 +1,1 @@
+* Add a "-f" flag to force re-fetch everything. Otherwise only get cities with no data.
