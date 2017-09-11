@@ -266,6 +266,10 @@ input:checked + .slider:before {
       }
     }
 
+    function f(tmp_c) {
+      return Math.round(1.8 * tmp_c + 32);
+    }
+
     function setupListeners() {
       document.getElementById('t').addEventListener('mouseover', function(e) {
         var cell = document.elementFromPoint(e.clientX, e.clientY);
@@ -274,13 +278,21 @@ input:checked + .slider:before {
           popup.style.display = 'none';
           return;
         }
-        var tmpMin = cell.getAttribute('tmp-min');
-        var tmpAvg = cell.getAttribute('tmp-avg');
-        var tmpMax = cell.getAttribute('tmp-max');
-        var rainfall = cell.getAttribute('rain');
-        popup.innerHTML = 'Min: <b>' + tmpMin + '°C</b><br>Mean: <b>' +
-            tmpAvg + '°C</b><br>Max: <b>' + tmpMax + '°C</b><br>Avg ' +
-            'rainfall: <b>' + rainfall + '0mm</b>';
+        var tmpMin = parseInt(cell.getAttribute('tmp-min'));
+        var tmpAvg = parseInt(cell.getAttribute('tmp-avg'));
+        var tmpMax = parseInt(cell.getAttribute('tmp-max'));
+        var rainfall = parseInt(cell.getAttribute('rain'));
+
+        var useWackyUnit = !document.getElementById('wacky').checked;
+        var unit = '°' + (useWackyUnit ? 'F' : 'C');
+        if (useWackyUnit) {
+          tmpMin = f(tmpMin);
+          tmpMax = f(tmpMax);
+          tmpAvg = f(tmpAvg);
+        }
+        popup.innerHTML = 'Min: <b>' + tmpMin + unit + '</b><br>Mean: <b>' +
+            tmpAvg + unit + '</b><br>Max: <b>' + tmpMax + unit +
+            '</b><br>Avg rainfall: <b>' + rainfall + '0mm</b>';
         popup.style.display = 'inline-block';
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
@@ -423,7 +435,7 @@ input:checked + .slider:before {
   <div id="unit_switch">
   <span>°F</span>
   <label class="switch">
-    <input type="checkbox" checked>
+    <input id="wacky" type="checkbox" checked>
     <span class="slider round"></span>
   </label>
   <span>°C</span>
