@@ -119,6 +119,7 @@ LOCATIONS = [
   "Riga|LV",
   "Rio de Janeiro|BR",
   "Rome|IT",
+  "Saint Petersburg|RU",
   "San Francisco|US",
   "Santiago|CL",
   "Sanya|CN",
@@ -137,6 +138,8 @@ LOCATIONS = [
   "Thimphu|BT",
   "Tianjin|CN",
   "Tokyo|JP",
+  "Toronto|CA",
+  "Vancouver|CA",
   "Venice|IT",
   "Vienna|AT",
   "Vientiane|LA",
@@ -206,7 +209,7 @@ for location in LOCATIONS:
   sys.stdout.write(" ")
   if location in master_data:
     if has_data(location):
-        sys.stdout.write("✓ (" + str(len(master_data[location])) + ")\n")
+        sys.stdout.write("✓\n")
         continue
   sys.stdout.flush()
   if place not in master_data:
