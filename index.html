@@ -13,9 +13,9 @@
     #header {
       background: #f1f1f1;
       margin-bottom: 10px;
+      min-width: 800px;
       padding: 5px 20px;
-      top: 0;
-      width: 100%;
+      white-space: nowrap;
     }
     h1 {
       font-size: 27px;
@@ -30,13 +30,16 @@
       padding: 5px;
     }
     #feedback {
-      margin: 0 10px 0 40px;
+      text-align: center;
     }
     h1, #logo, #search {
       vertical-align: middle;
     }
-    h1, #search, #unit_switch, #feedback {
+    h1, #search, #unit_switch {
       display: inline-block;
+    }
+    #unit_switch {
+      margin-right: 20px;
     }
     /* Pop-up */
     #popup {
@@ -100,9 +103,6 @@
     }
     #legend {
       display: inline-block;
-      position: absolute;
-      right: 17px;
-      top: 22px;
     }
     #legend img {
       height: 50px;
@@ -442,8 +442,6 @@ input:checked + .slider:before {
   <span>°C</span>
   </div>
 
-  <div id="feedback"><a target="_new" href="https://docs.google.com/forms/d/e/1FAIpQLSeun4nJuACmJSJGL33qzEpQjFBH5asWOTxlXCOfKxXInuDiyg/viewform?usp=sf_link">Send feedback</a></div>
-
   <div id="legend">
     <img src="cold.png" alt="Cold">
     <div id="scale"></div>
@@ -452,6 +450,8 @@ input:checked + .slider:before {
 </div>
 <div id="t">Loading data...</div>
 <div id="popup"></div>
+
+<div id="feedback"><a target="_new" href="https://docs.google.com/forms/d/e/1FAIpQLSeun4nJuACmJSJGL33qzEpQjFBH5asWOTxlXCOfKxXInuDiyg/viewform?usp=sf_link">Send feedback</a></div>
 
 <div id="footer">
   Made from weather data collected over the past 10
