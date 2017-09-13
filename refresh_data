@@ -149,11 +149,18 @@ DREMEL_TEMPLATE = (
 'ON W.StationId = S.Id '
 'ORDER BY Date;')
 
-if os.path.exists(DATA_FILE):
-  print("'" + DATA_FILE + "' already exists, I won't clobber it.")
-  sys.exit(-1)
-f = open("data.txt", "w")
+def has_data(location):
+  for half_month in master_data[location]:
+    for data_point in master_data[location][half_month]:
+      if data_point != 0:
+        return True
+  return False
+
 master_data = {}
+if os.path.exists(DATA_FILE):
+  with open(DATA_FILE) as existing_data:
+    master_data = json.load(existing_data)
+f = open(DATA_FILE, "w")
 start_year = 2007
 end_year = 2016
 all_years_str = [str(y) for y in range(start_year, end_year + 1)]
@@ -161,13 +168,18 @@ start_date = str(start_year) + "0101"
 end_date = str(end_year) + "1231"
 for location in LOCATIONS:
   (place, region_code) = location.split("|")
-  if place not in master_data:
-    master_data[location] = {}
   buffer = len(place + ", " + region_code)
   sys.stdout.write(place + ", " + region_code)
   for i in range(0, 40 - buffer):
     sys.stdout.write(".")
+  sys.stdout.write(" ")
+  if location in master_data:
+    if has_data(location):
+        sys.stdout.write("✓ (" + str(len(master_data[location])) + ")\n")
+        continue
   sys.stdout.flush()
+  if place not in master_data:
+    master_data[location] = {}
   command = ["echo", "'" + (DREMEL_TEMPLATE % (start_date, end_date, place, region_code)) + "'"]
   echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
   output = subprocess.check_output([
