@@ -80,7 +80,8 @@ LOCATIONS = [
   "Ho Chi Minh City|VN",
   "Hong Kong|HK",
   "Hyderabad|IN",
-  "Islamabad|PK",
+  # Incomplete data
+  # "Islamabad|PK",
   "Istanbul|TR",
   "Jakarta|ID",
   "Johannesburg|ZA",
