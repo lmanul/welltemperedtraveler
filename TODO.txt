@@ -1,1 +1,3 @@
 * Add a "-f" flag to force re-fetch everything. Otherwise only get cities with no data.
+* Reykjavik is reported as having no rain, but there's actually a lot, so the data is
+missing.
