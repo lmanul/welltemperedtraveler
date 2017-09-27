@@ -114,6 +114,8 @@ LOCATIONS = [
   "Nanjing|CN",
   "New York|US",
   "Ningbo|CN",
+  "Nizhny Novgorod|RU",
+  "Novosibirsk|RU",
   "Oslo|NO",
   "Paris|FR",
   "Portland|US",
@@ -152,6 +154,7 @@ LOCATIONS = [
   "Vilnius|LT",
   #"Washington DC|US",
   "Wuhan|CN",
+  "Yekaterinburg|RU",
   "Yerevan|AM",
   #"Zurich|CH",
 ]
