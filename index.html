@@ -55,6 +55,9 @@
       margin: 20px auto;
       width: 1080px; /* 12 * 80 + 120 */
     }
+    .reset {
+      cursor: pointer;
+    }
     /* Header */
     .lh {
       overflow: hidden;
@@ -82,7 +85,7 @@
       pointer-events: none;
     }
     .p.lh {
-      color: #888;
+      text-align: center;
     }
     .c.e {
       border-right: 1px solid #555;
@@ -198,6 +201,7 @@ input:checked + .slider:before {
     var data;
     var ctryCodes = {};
     var localMonthNames = [];
+    var resetButtonAdded = false;
     for (var i = 1; i < 13; i++) {
       localMonthNames.push(
         new Date('2000.' + i + '.01').toLocaleString(
@@ -226,19 +230,21 @@ input:checked + .slider:before {
       CtryXhr.send(null);
     }
 
+    function assignTooltips() {
+      var cityNameSpans = document.getElementsByClassName('lhs');
+      for (var i = 0, span; span = cityNameSpans[i]; i++) {
+        var ctry = span.getAttribute('ctry');
+        span.setAttribute('title', span.textContent + ', ' + ctryCodes[ctry]);
+      }
+    }
+
     function processCountryData(data) {
       var lines = data.split('\n');
       for (var i = 0, line; line = lines[i]; i++) {
         var parts = line.split(':');
         ctryCodes[parts[0]] = parts[1];
       }
-      window.setTimeout(function() {
-        var cityNameSpans = document.getElementsByClassName('lhs');
-        for (var i = 0, span; span = cityNameSpans[i]; i++) {
-          var ctry = span.getAttribute('ctry');
-          span.setAttribute('title', span.textContent + ', ' + ctryCodes[ctry]);
-        }
-      }, 5000);
+      window.setTimeout(assignTooltips, 5000);
     }
 
     function processData(data) {
@@ -265,11 +271,17 @@ input:checked + .slider:before {
 
     function drawData() {
       document.getElementById('t').innerHTML = '';
+      resetButtonAdded = false;
       for (var i = 0, city; city = filteredCities[i]; i++) {
         if (i % 10 == 0) {
           showColumnHeaders();
         }
         showSingleCity(city);
+      }
+      if (!!ctryCodes['FR']) {
+        assignTooltips();
+      } else {
+        // This will happen later.
       }
     }
 
@@ -329,7 +341,13 @@ input:checked + .slider:before {
           }
           filteredCities.sort(function(a, b) {
             var diff = comfyFactors[b] - comfyFactors[a];
-            return (diff == 0) ? a > b : diff;
+            return (diff == 0) ? (a > b ? 1 : -1) : diff;
+          });
+          drawData();
+        }
+        if (e.target.className == 'reset') {
+          filteredCities.sort(function(a, b) {
+            return (a > b ? 1 : -1);
           });
           drawData();
         }
@@ -365,6 +383,13 @@ input:checked + .slider:before {
       var colHeaders = document.createElement('div');
       colHeaders.classList.add('l');
       var pivot = document.createElement('div');
+      if (!resetButtonAdded) {
+        var resetIcon = document.createElement('img');
+        resetIcon.setAttribute('src', 'reset.png');
+        resetIcon.className = 'reset';
+        pivot.appendChild(resetIcon);
+        resetButtonAdded = true;
+      }
       pivot.classList.add('lh');
       pivot.classList.add('p');
       colHeaders.appendChild(pivot);
