@@ -250,8 +250,6 @@ for location in LOCATIONS:
         data[str(year)][month_half].append([temp_min, temp_average, temp_max, rainfall])
   sys.stdout.write(str(len(data)) + "y\n")
   sys.stdout.flush()
-  #if len(data) != end_year - start_year + 1:
-  #  print("Warning: got " + str(len(data)) + " years for " + place)
   # Now we have ~15 temperature tuples (min, max, avg) for each half-month of
   # each year.
   # Let's start by reducing all this into one tuple for each half-month of each
