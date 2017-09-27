@@ -196,6 +196,12 @@ def has_data(location):
         return True
   return False
 
+def array_has_data(the_array):
+  for a in the_array:
+    if a != -9999:
+      return True
+  return False
+
 master_data = {}
 if os.path.exists(DATA_FILE):
   with open(DATA_FILE) as existing_data:
@@ -250,7 +256,7 @@ for location in LOCATIONS:
         data[str(year)][month_half].append([temp_min, temp_average, temp_max, rainfall])
   sys.stdout.write(str(len(data)) + "y\n")
   sys.stdout.flush()
-  # Now we have ~15 temperature tuples (min, max, avg) for each half-month of
+  # Now we have ~15 temperature tuples (min, max, mean) for each half-month of
   # each year.
   # Let's start by reducing all this into one tuple for each half-month of each
   # year.
@@ -271,14 +277,20 @@ for location in LOCATIONS:
               max_temp_for_this_half_month = int(round(float(max(array_of_max_tmps))))
             else:
               max_temp_for_this_half_month = -9999
-            average_temp_for_this_half_month = \
-                int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
+            if array_has_data(array_of_average_temps):
+              average_temp_for_this_half_month = \
+                  int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
+            else:
+              average_temp_for_this_half_month = -9999
             if len(array_of_min_tmps) > 0:
               min_temp_for_this_half_month = int(round(float(min(array_of_min_tmps))))
             else:
               min_temp_for_this_half_month = -9999
-            average_rainfall_for_this_half_month = \
-                int(round(float(sum(array_of_rainfall)) / max(len(array_of_rainfall), 1)))
+            if array_has_data(array_of_rainfall):
+              average_rainfall_for_this_half_month = \
+                  int(round(float(sum(array_of_rainfall)) / max(len(array_of_rainfall), 1)))
+            else:
+              average_rainfall_for_this_half_month = -9999
             data[y][month_half] = [min_temp_for_this_half_month, average_temp_for_this_half_month, \
                 max_temp_for_this_half_month, average_rainfall_for_this_half_month]
 
@@ -301,14 +313,26 @@ for location in LOCATIONS:
       if DEBUG:
         print("Averaging the following for " + month_half + " across all years:")
         print(array_of_average_temps)
-      min_temp_average = \
-          int(round(float(sum(array_of_min_temps)) / max(len(array_of_min_temps), 1)))
-      temp_average = \
-          int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
-      max_temp_average = \
-          int(round(float(sum(array_of_max_temps)) / max(len(array_of_max_temps), 1)))
-      rainfall_average = \
-          int(round(float(sum(array_of_rainfall)) / max(len(array_of_rainfall), 1)))
+      if array_has_data(array_of_min_temps):
+        min_temp_average = \
+            int(round(float(sum(array_of_min_temps)) / max(len(array_of_min_temps), 1)))
+      else:
+        min_temp_average = -9999
+      if array_has_data(array_of_average_temps):
+        temp_average = \
+            int(round(float(sum(array_of_average_temps)) / max(len(array_of_average_temps), 1)))
+      else:
+        temp_average = -9999
+      if array_has_data(array_of_max_temps):
+        max_temp_average = \
+            int(round(float(sum(array_of_max_temps)) / max(len(array_of_max_temps), 1)))
+      else:
+        max_temp_average = -9999
+      if array_has_data(array_of_rainfall):
+        rainfall_average = \
+            int(round(float(sum(array_of_rainfall)) / max(len(array_of_rainfall), 1)))
+      else:
+        rainfall_average = -9999
       master_data[location][month_half] = [min_temp_average, temp_average, max_temp_average, rainfall_average]
   # Done with this location
   for y in all_years_str:
