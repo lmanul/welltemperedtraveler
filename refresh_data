@@ -310,10 +310,14 @@ for location in LOCATIONS:
       array_of_rainfall = []
       for y in all_years_str:
         if y in data and month_half in data[y]:
-          array_of_min_temps.append(data[y][month_half][0])
-          array_of_average_temps.append(data[y][month_half][1])
-          array_of_max_temps.append(data[y][month_half][2])
-          array_of_rainfall.append(data[y][month_half][3])
+          if data[y][month_half][0] > -1000:
+            array_of_min_temps.append(data[y][month_half][0])
+          if data[y][month_half][1] > -1000:
+            array_of_average_temps.append(data[y][month_half][1])
+          if data[y][month_half][2] > -1000:
+            array_of_max_temps.append(data[y][month_half][2])
+          if data[y][month_half][3] > -1000:
+            array_of_rainfall.append(data[y][month_half][3])
 
       if DEBUG:
         print("Averaging the following for " + month_half + " across all years:")
