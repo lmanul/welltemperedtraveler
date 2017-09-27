@@ -46,6 +46,7 @@
       background-color: #fff;
       border: 1px solid #222;
       box-shadow: 15px 15px 23px rgba(0, 0, 0, 0.4);
+      display: none;
       padding: 10px;
       position: fixed;
     }
@@ -96,6 +97,7 @@
       vertical-align: middle;
     }
     .ch {
+      cursor: pointer;
       font-weight: bold;
       padding: 7px 0;
       text-align: center;
@@ -275,6 +277,16 @@ input:checked + .slider:before {
       return Math.round(1.8 * tmp_c + 32);
     }
 
+    function format(value, unit) {
+      if (value == -9999) {
+        return '-';
+      }
+      if (unit == 'mm') {
+        value *= 10;
+      }
+      return '' + value + unit;
+    }
+
     function setupListeners() {
       document.getElementById('t').addEventListener('mouseover', function(e) {
         var cell = document.elementFromPoint(e.clientX, e.clientY);
@@ -295,9 +307,11 @@ input:checked + .slider:before {
           tmpMax = f(tmpMax);
           tmpAvg = f(tmpAvg);
         }
-        popup.innerHTML = 'Min: <b>' + tmpMin + unit + '</b><br>Mean: <b>' +
-            tmpAvg + unit + '</b><br>Max: <b>' + tmpMax + unit +
-            '</b><br>Avg rainfall: <b>' + rainfall + '0mm</b>';
+        popup.innerHTML = 'Min: <b>' + format(tmpMin, unit) + '</b><br>' +
+            'Mean: <b>' + format(tmpAvg, unit) + '</b><br>' +
+            'Max: <b>' + format(tmpMax, unit) + '</b><br>' +
+            '<img src="droplet.png" width="15px"> <b>' +
+                format(rainfall, 'mm') + '</b>';
         popup.style.display = 'inline-block';
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
@@ -305,6 +319,20 @@ input:checked + .slider:before {
       });
       document.getElementById('t').addEventListener('mouseout', function() {
         document.getElementById('popup').style.display = 'none';
+      });
+      document.getElementById('t').addEventListener('click', function(e) {
+        if (e.target.className == 'ch') {
+          var comfyFactors = {};
+          var monthNumber = parseInt(e.target.getAttribute('n'));
+          for (var i = 0, city; city = filteredCities[i]; i++) {
+            comfyFactors[city] = getComfyFactor(city, monthNumber);
+          }
+          filteredCities.sort(function(a, b) {
+            var diff = comfyFactors[b] - comfyFactors[a];
+            return (diff == 0) ? a > b : diff;
+          });
+          drawData();
+        }
       });
       document.getElementById('popup').style.display = 'none';
       document.getElementById('sb').addEventListener('input', function(e) {
@@ -344,6 +372,7 @@ input:checked + .slider:before {
         var colHeader = document.createElement('div');
         colHeader.textContent = localMonthNames[i];
         colHeader.classList.add('ch');
+        colHeader.setAttribute('n', i + 1);
         colHeaders.appendChild(colHeader);
       }
       table.appendChild(colHeaders);
@@ -405,7 +434,41 @@ input:checked + .slider:before {
       return 'rgb(' + tuple[0] + ', ' + tuple[1] + ',' + tuple[2] + ')';
     }
 
+    function getComfyFactor(city, monthNumber) {
+      var comfyFactor = 100;
+      var C = COLORS[4][0];
+      var minTemps = [];
+      var meanTemps = [];
+      var maxTemps = [];
+      var rainfalls = [];
+      for (var i = 1; i < 3; i++) {
+        var halfMonth = '' + monthNumber + '-' + i;
+        var tmps = data[city][halfMonth];
+        console.log(city + ', ' + halfMonth + ': ' + tmps);
+        for (var j = 0; j < tmps.length; j++) {
+          if (tmps[j] == -9999 || tmps[j] == '-9999') {
+            return -9999;
+          }
+        }
+        minTemps.push(tmps[0]);
+        meanTemps.push(tmps[1]);
+        maxTemps.push(tmps[2]);
+        rainfalls.push(tmps[3]);
+      }
+      for (var i = 0; i < 2; i++) {
+        comfyFactor -= 0.5 * Math.abs(C - minTemps[i]);
+        comfyFactor -= Math.abs(C - meanTemps[i]);
+        comfyFactor -= 0.5 * Math.abs(C - maxTemps[i]);
+        comfyFactor -= Math.abs(rainfalls[i]);
+      }
+      console.log('Comfy factor for ' + city + ' on ' + monthNumber + ': ' + comfyFactor);
+      return comfyFactor;
+    }
+
     function getCellColor(tmp_avg) {
+      if (tmp_avg == -9999) {
+        return '#ddd';
+      }
       if (tmp_avg <= COLORS[0][0]) {
         return cssColorFromTuple(COLORS[0][1]);
       }
