@@ -51,6 +51,10 @@
       padding: 10px;
       position: fixed;
     }
+    #popup img {
+      vertical-align: middle;
+      width: 13px;
+    }
     /* Table */
     #t {
       margin: 20px auto;
@@ -58,7 +62,6 @@
     }
     .reset {
       cursor: pointer;
-      margin: 7px;
     }
     /* Header */
     .lh {
@@ -196,9 +199,9 @@ input:checked + .slider:before {
     [-8, [0, 78, 234]],    // Freezing, dark blue
     [3, [0, 167, 239]],    // Cold, blue
     [12, [5, 255, 217]],   // Chilly, turquoise
-    [22, [3, 186, 0]],     // Comfy, green
-    [26, [255, 255, 0]],   // Warm, yellow
-    [28, [255, 140, 0]],   // A bit too warm, orange
+    [23, [3, 186, 0]],     // Comfy, green
+    [27, [255, 255, 0]],   // Warm, yellow
+    [29, [255, 140, 0]],   // A bit too warm, orange
     [33, [255, 0, 34]],    // Very hot, red
     [40, [175, 0, 0]],    // Hellish, dark red
   ]
@@ -303,7 +306,7 @@ input:checked + .slider:before {
       if (unit == 'mm') {
         value *= 10;
       }
-      return '' + value + unit;
+      return '<b>' + value + '</b>' + unit;
     }
 
     function setupListeners() {
@@ -320,17 +323,21 @@ input:checked + .slider:before {
         var rainfall = parseInt(cell.getAttribute('rain'));
 
         var useWackyUnit = !document.getElementById('wacky').checked;
-        var unit = '°' + (useWackyUnit ? 'F' : 'C');
+        var unit = '&#176;' + (useWackyUnit ? 'F' : 'C');
         if (useWackyUnit) {
           tmpMin = f(tmpMin);
           tmpMax = f(tmpMax);
           tmpAvg = f(tmpAvg);
         }
-        popup.innerHTML = 'Min: <b>' + format(tmpMin, unit) + '</b><br>' +
-            'Mean: <b>' + format(tmpAvg, unit) + '</b><br>' +
-            'Max: <b>' + format(tmpMax, unit) + '</b><br>' +
-            '<img src="droplet.png" width="15px"> <b>' +
-                format(rainfall, 'mm') + '</b>';
+        popup.innerHTML =
+            '<table style="text-align: center;">' +
+            '<tr><td><img src="hot.png"></td><td>' + format(tmpMax, unit) + '</td></tr>' +
+            '<tr><td><span style="color: #ddd;">|</span></td><td>' +
+                format(tmpAvg, unit) + '</td></tr>' +
+            '<tr><td><img src="cold.png"></td><td>' + format(tmpMin, unit) + '</td></tr>' +
+            '<tr><td><img src="droplet.png"></td><td>' +
+                format(rainfall, 'mm') + '</td></tr>' +
+            '</table>';
         popup.style.display = 'inline-block';
         popup.style.left = e.clientX + 20;
         popup.style.top = e.clientY + 20;
@@ -535,15 +542,15 @@ input:checked + .slider:before {
   <div id="header">
   <h1>The Well-Tempered Traveler</h1>
 
-  <div id="search"><input id="sb" placeholder="🔎"></input></div>
+  <div id="search"><input id="sb" placeholder="&#x1F50E;"></input></div>
 
   <div id="unit_switch">
-  <span>°F</span>
+  <span>&#176;F</span>
   <label class="switch">
     <input id="wacky" type="checkbox" checked>
     <span class="slider round"></span>
   </label>
-  <span>°C</span>
+  <span>&#176;C</span>
   </div>
 
   <div id="legend">
