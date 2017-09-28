@@ -262,12 +262,12 @@ input:checked + .slider:before {
     }
 
     function processData(data) {
-      // More than 3 half-months with non-zero temp and we assume we have data.
-      var threshold = 3;
+      // More than 6 half-months with a temp and we assume we have data.
+      var threshold = 6;
       for (city in data) {
         var halfMonthsWithData = 0;
         for (var halfMonth in data[city]) {
-          if (data[city][halfMonth][1] != 0) {
+          if (data[city][halfMonth][1] != -9999) {
             halfMonthsWithData++;
             if (halfMonthsWithData >= threshold) {
               cities.push(city);
