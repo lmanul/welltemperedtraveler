@@ -67,6 +67,7 @@
     /* Header */
     .lh {
       overflow: hidden;
+      padding-right: 5px;
       text-overflow: ellipsis;
       width: 120px;
     }
@@ -115,8 +116,11 @@
       text-align: center;
       width: 80px;
     }
+    .ch:hover {
+      background-color: rgba(35, 133, 255, 0.2);
+    }
     .ch.sel {
-      background-color: #2385ff;
+      background-color: rgb(35, 133, 255);
       color: #fff;
     }
     #legend {
@@ -565,8 +569,6 @@ input:checked + .slider:before {
 </div>
 <div id="t">Loading data...</div>
 <div id="popup"></div>
-
-<div id="feedback"><a target="_new" href="https://docs.google.com/forms/d/e/1FAIpQLSeun4nJuACmJSJGL33qzEpQjFBH5asWOTxlXCOfKxXInuDiyg/viewform?usp=sf_link">Send feedback</a></div>
 
 <div id="footer">
   Made from weather data collected over the past 10
