@@ -59,6 +59,7 @@
     /* Table */
     #t {
       margin: 20px auto;
+      text-align: center;
       width: 1080px; /* 12 * 80 + 120 */
     }
     .reset {
@@ -200,6 +201,23 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+  /* Spinner styles */
+  .spinner {
+    animation: spin 2s linear infinite;
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    display: inline-block;
+    height: 120px;
+    width: 120px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   </style>
   <script>
   COLORS = [
@@ -220,9 +238,12 @@ input:checked + .slider:before {
     var localMonthNames = [];
     var resetButtonAdded = false;
     var selectedMonth = 0;
-    for (var i = 1; i < 13; i++) {
+    var date = new Date();
+    for (var i = 0; i < 12; i++) {
+      date.setMonth(i);
+      date.setDate(1);
       localMonthNames.push(
-        new Date('2000.' + i + '.01').toLocaleString(
+        date.toLocaleString(
           window.navigator.language, { month: "short" }
       ));
     }
@@ -246,6 +267,10 @@ input:checked + .slider:before {
       }
       CtryXhr.open('GET', 'ctry_codes.txt', true);
       CtryXhr.send(null);
+      // Also set the default value of the temp unit depending on locale.
+      if (!!navigator && !!navigator.language && navigator.language == 'en-US') {
+        document.getElementById('wacky').checked = false;
+      }
     }
 
     function assignTooltips() {
@@ -510,7 +535,7 @@ input:checked + .slider:before {
         comfyFactor -= 0.5 * Math.abs(C - minTemps[i]);
         comfyFactor -= Math.abs(C - meanTemps[i]);
         comfyFactor -= 0.5 * Math.abs(C - maxTemps[i]);
-        comfyFactor -= Math.abs(rainfalls[i]);
+        comfyFactor -= 0.5 * Math.abs(rainfalls[i]);
       }
       return comfyFactor;
     }
@@ -567,7 +592,7 @@ input:checked + .slider:before {
     <img src="hot.png" alt="Hot">
   </div>
 </div>
-<div id="t">Loading data...</div>
+<div id="t"><div class="spinner"></div></div>
 <div id="popup"></div>
 
 <div id="footer">
