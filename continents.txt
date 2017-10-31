@@ -1,50 +1,14 @@
 Antarctica:AQ,BV,GS,HM,TF
-South America:AR,AW,BO,BQ,BR,CL,CO,EC,FK,GF,GY,PE,PY,SR,UY,VE
+Oceania:AS,AU,CK,FJ,FM,GU,KI,MH,MP,NC,NF,NR,NU,NZ,PF,PG,PN,PW,SB,TK,TO,TV,UM,VU,WF,WS
+South America:AR,AW,BO,BQ,BR,CL,CO,CW,EC,FK,GF,GY,PE,PY,SR,UY,VE
 
 
 
-Africa:AO,BF,BI,BJ
-Asia:AE,AF,AZ,BD,BH,BN,BT
-Europe:AD,AL,AM,AT,AX,BA,BE,BG
-North America:AG,AI,BB,BL,BM,BS
+Africa:AO,BF,BI,BJ,BW,CD,CF,CG,CI,CM,CV,DJ,DZ,EG,EH,ER,ET
+Asia:AE,AF,AZ,BD,BH,BN,BT,CC,CN,CX
+Europe:AD,AL,AM,AT,AX,BA,BE,BG,BY,CZ,CH,CY,DE,DK,EE,ES,FI
+North America:AG,AI,BB,BL,BM,BS,CA,CR,BZ,CU,DM,DO
 
-
-Oceania:AS,AU,CK,FJ,FM,GU,KI,MH,MP,NC,NF,NR,NU,NZ,PF,PG,PN,PW,SB,TK
-
-
-
-BW:Botswana
-BY:Belarus
-BZ:Belize
-CA:Canada
-CC:Cocos (Keeling) Islands
-CD:Congo, the Democratic Republic of the
-CF:Central African Republic
-CG:Congo
-CH:Switzerland
-CI:Côte d'Ivoire
-CM:Cameroon
-CN:China
-CR:Costa Rica
-CU:Cuba
-CV:Cabo Verde
-CW:Curaçao
-CX:Christmas Island
-CY:Cyprus
-CZ:Czech Republic
-DE:Germany
-DJ:Djibouti
-DK:Denmark
-DM:Dominica
-DO:Dominican Republic
-DZ:Algeria
-EE:Estonia
-EG:Egypt
-EH:Western Sahara
-ER:Eritrea
-ES:Spain
-ET:Ethiopia
-FI:Finland
 FO:Faroe Islands
 FR:France
 GA:Gabon
@@ -173,15 +137,12 @@ TJ:Tajikistan
 TL:Timor-Leste
 TM:Turkmenistan
 TN:Tunisia
-TO:Tonga
 TR:Turkey
 TT:Trinidad and Tobago
-TV:Tuvalu
 TW:Taiwan, Province of China
 TZ:Tanzania, United Republic of
 UA:Ukraine
 UG:Uganda
-UM:United States Minor Outlying Islands
 US:United States
 UZ:Uzbekistan
 VA:Holy See (Vatican City State)
@@ -189,9 +150,6 @@ VC:Saint Vincent and the Grenadines
 VG:Virgin Islands, British
 VI:Virgin Islands, U.S.
 VN:Viet Nam
-VU:Vanuatu
-WF:Wallis and Futuna
-WS:Samoa
 YE:Yemen
 YT:Mayotte
 ZA:South Africa
