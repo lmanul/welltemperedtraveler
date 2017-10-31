@@ -1,4 +1,5 @@
 Antarctica:AQ,BV,GS,HM,TF
+South America:AR,AW,BO,BQ,BR,CL,CO,EC,FK,GF,GY,PE,PY,SR,UY,VE
 
 Africa:AO,BF,BI,BJ
 
@@ -11,7 +12,6 @@ Asia:AE,AF,AZ,BD,BH,BN,BT
 Oceania:AS,AU
 Europe:AD,AL,AM,AT,AX,BA,BE,BG
 North America:AG,AI,BB,BL,BM,BS
-South America:AR,AW,BO,BQ,BR
 
 
 
@@ -26,10 +26,8 @@ CG:Congo
 CH:Switzerland
 CI:Côte d'Ivoire
 CK:Cook Islands
-CL:Chile
 CM:Cameroon
 CN:China
-CO:Colombia
 CR:Costa Rica
 CU:Cuba
 CV:Cabo Verde
@@ -43,7 +41,6 @@ DK:Denmark
 DM:Dominica
 DO:Dominican Republic
 DZ:Algeria
-EC:Ecuador
 EE:Estonia
 EG:Egypt
 EH:Western Sahara
@@ -52,7 +49,6 @@ ES:Spain
 ET:Ethiopia
 FI:Finland
 FJ:Fiji
-FK:Falkland Islands (Malvinas)
 FM:Micronesia, Federated States of
 FO:Faroe Islands
 FR:France
@@ -60,7 +56,6 @@ GA:Gabon
 GB:United Kingdom
 GD:Grenada
 GE:Georgia
-GF:French Guiana
 GG:Guernsey
 GH:Ghana
 GI:Gibraltar
@@ -73,7 +68,6 @@ GR:Greece
 GT:Guatemala
 GU:Guam
 GW:Guinea-Bissau
-GY:Guyana
 HK:Hong Kong
 HN:Honduras
 HR:Croatia
@@ -153,7 +147,6 @@ NZ:New Zealand
 OM:Oman
 OO:Escape code
 PA:Panama
-PE:Peru
 PF:French Polynesia
 PG:Papua New Guinea
 PH:Philippines
@@ -165,7 +158,6 @@ PR:Puerto Rico
 PS:Palestine, State of
 PT:Portugal
 PW:Palau
-PY:Paraguay
 QA:Qatar
 RE:Réunion
 RO:Romania
@@ -186,7 +178,6 @@ SL:Sierra Leone
 SM:San Marino
 SN:Senegal
 SO:Somalia
-SR:Suriname
 SS:South Sudan
 ST:Sao Tome and Principe
 SV:El Salvador
@@ -212,11 +203,9 @@ UA:Ukraine
 UG:Uganda
 UM:United States Minor Outlying Islands
 US:United States
-UY:Uruguay
 UZ:Uzbekistan
 VA:Holy See (Vatican City State)
 VC:Saint Vincent and the Grenadines
-VE:Venezuela, Bolivarian Republic of
 VG:Virgin Islands, British
 VI:Virgin Islands, U.S.
 VN:Viet Nam
