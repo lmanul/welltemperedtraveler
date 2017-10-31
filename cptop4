@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+if len(sys.argv) < 2:
+  print("Please give me the name of your CitC client as an argument")
+  sys.exit(1)
+dest = sys.argv[1]
+
+full_dest = os.path.join("/google/src/cloud/manucornet/", dest, "google3/googledata/html/welltemperedtraveler")
+
+if not os.path.exists(full_dest):
+  print("I can't find the directory '" + full_dest + "'")
+  sys.exit(1)
+
+to_copy = [
+  # Image
+  "cold.png",
+  "dot.png",
+  "droplet.png",
+  "favicon.png",
+  "hot.png",
+  "reset.png",
+  # HTML
+  "index.html",
+  # Data
+  "ctry_codes.txt",
+  "data.txt",
+]
+
+for f in to_copy:
+  os.system("cp " + f + " " + full_dest)
