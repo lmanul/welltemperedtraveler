@@ -1,17 +1,15 @@
 Antarctica:AQ,BV,GS,HM,TF
 South America:AR,AW,BO,BQ,BR,CL,CO,EC,FK,GF,GY,PE,PY,SR,UY,VE
 
+
+
 Africa:AO,BF,BI,BJ
-
-
-
-
-
-
 Asia:AE,AF,AZ,BD,BH,BN,BT
-Oceania:AS,AU
 Europe:AD,AL,AM,AT,AX,BA,BE,BG
 North America:AG,AI,BB,BL,BM,BS
+
+
+Oceania:AS,AU,CK,FJ,FM,GU,KI,MH,MP,NC,NF
 
 
 
@@ -25,7 +23,6 @@ CF:Central African Republic
 CG:Congo
 CH:Switzerland
 CI:Côte d'Ivoire
-CK:Cook Islands
 CM:Cameroon
 CN:China
 CR:Costa Rica
@@ -48,8 +45,6 @@ ER:Eritrea
 ES:Spain
 ET:Ethiopia
 FI:Finland
-FJ:Fiji
-FM:Micronesia, Federated States of
 FO:Faroe Islands
 FR:France
 GA:Gabon
@@ -66,7 +61,6 @@ GP:Guadeloupe
 GQ:Equatorial Guinea
 GR:Greece
 GT:Guatemala
-GU:Guam
 GW:Guinea-Bissau
 HK:Hong Kong
 HN:Honduras
@@ -90,7 +84,6 @@ JP:Japan
 KE:Kenya
 KG:Kyrgyzstan
 KH:Cambodia
-KI:Kiribati
 KM:Comoros
 KN:Saint Kitts and Nevis
 KP:Korea, Democratic People's Republic of
@@ -115,13 +108,11 @@ MD:Moldova, Republic of
 ME:Montenegro
 MF:Saint Martin (French part)
 MG:Madagascar
-MH:Marshall Islands
 MK:Macedonia, the former Yugoslav Republic of
 ML:Mali
 MM:Myanmar
 MN:Mongolia
 MO:Macao
-MP:Northern Mariana Islands
 MQ:Martinique
 MR:Mauritania
 MS:Montserrat
@@ -133,9 +124,7 @@ MX:Mexico
 MY:Malaysia
 MZ:Mozambique
 NA:Namibia
-NC:New Caledonia
 NE:Niger
-NF:Norfolk Island
 NG:Nigeria
 NI:Nicaragua
 NL:Netherlands
