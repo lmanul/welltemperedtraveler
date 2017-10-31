@@ -9,7 +9,7 @@ Europe:AD,AL,AM,AT,AX,BA,BE,BG
 North America:AG,AI,BB,BL,BM,BS
 
 
-Oceania:AS,AU,CK,FJ,FM,GU,KI,MH,MP,NC,NF
+Oceania:AS,AU,CK,FJ,FM,GU,KI,MH,MP,NC,NF,NR,NU,NZ,PF,PG,PN,PW,SB,TK
 
 
 
@@ -130,23 +130,16 @@ NI:Nicaragua
 NL:Netherlands
 NO:Norway
 NP:Nepal
-NR:Nauru
-NU:Niue
-NZ:New Zealand
 OM:Oman
 OO:Escape code
 PA:Panama
-PF:French Polynesia
-PG:Papua New Guinea
 PH:Philippines
 PK:Pakistan
 PL:Poland
 PM:Saint Pierre and Miquelon
-PN:Pitcairn
 PR:Puerto Rico
 PS:Palestine, State of
 PT:Portugal
-PW:Palau
 QA:Qatar
 RE:Réunion
 RO:Romania
@@ -154,7 +147,6 @@ RS:Serbia
 RU:Russian Federation
 RW:Rwanda
 SA:Saudi Arabia
-SB:Solomon Islands
 SC:Seychelles
 SD:Sudan
 SE:Sweden
@@ -178,7 +170,6 @@ TD:Chad
 TG:Togo
 TH:Thailand
 TJ:Tajikistan
-TK:Tokelau
 TL:Timor-Leste
 TM:Turkmenistan
 TN:Tunisia
