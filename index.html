@@ -409,6 +409,11 @@ input:checked + .slider:before {
       document.getElementById('popup').style.display = 'none';
       document.getElementById('sb').addEventListener('input', function(e) {
         var input = e.target.value;
+        if (input.trim() == '') {
+          filteredCities = cities;
+          drawData();
+          return;
+        }
         input = input.replace(/,/g, ' ').trim();
         input = input.replace(/\s+/g, ' ');
         var inputParts = input.split(' ');
