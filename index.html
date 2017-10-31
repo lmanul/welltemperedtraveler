@@ -252,7 +252,12 @@ input:checked + .slider:before {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          data = JSON.parse(xhr.responseText);
+          var lines = xhr.responseText.split("\n")
+          data = {};
+          for (var i = 0, l; l = lines[i]; i++) {
+            var parts = l.split(":");
+            data[parts[0]] = JSON.parse(parts.slice(1).join(':'));
+          }
           processData(data);
         }
       }

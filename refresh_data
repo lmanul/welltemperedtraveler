@@ -355,5 +355,8 @@ for location in LOCATIONS:
     if len(master_data[location]) != 24:
       print("Warning: only got " + str(len(master_data[location])) + \
           " half-months for " + place)
-f.write(json.dumps(master_data))
+serialized = ""
+for location in sorted(master_data.keys()):
+  serialized += location + ":" + json.dumps(master_data[location]) + "\n"
+f.write(serialized)
 print("All done.")
