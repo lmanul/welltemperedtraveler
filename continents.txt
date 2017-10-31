@@ -1,12 +1,20 @@
+Antarctica:AQ,BV,GS,HM,TF
+
 Africa:AO,BF,BI,BJ
-Antarctica:AQ
+
+
+
+
+
+
 Asia:AE,AF,AZ,BD,BH,BN,BT
 Oceania:AS,AU
 Europe:AD,AL,AM,AT,AX,BA,BE,BG
 North America:AG,AI,BB,BL,BM,BS
 South America:AR,AW,BO,BQ,BR
 
-BV:Bouvet Island
+
+
 BW:Botswana
 BY:Belarus
 BZ:Belize
@@ -62,13 +70,11 @@ GN:Guinea
 GP:Guadeloupe
 GQ:Equatorial Guinea
 GR:Greece
-GS:South Georgia and the South Sandwich Islands
 GT:Guatemala
 GU:Guam
 GW:Guinea-Bissau
 GY:Guyana
 HK:Hong Kong
-HM:Heard Island and McDonald Islands
 HN:Honduras
 HR:Croatia
 HT:Haiti
@@ -189,7 +195,6 @@ SY:Syrian Arab Republic
 SZ:Swaziland
 TC:Turks and Caicos Islands
 TD:Chad
-TF:French Southern Territories
 TG:Togo
 TH:Thailand
 TJ:Tajikistan
