@@ -216,9 +216,11 @@ def array_has_data(the_array):
 
 master_data = {}
 if os.path.exists(DATA_FILE):
-  with open(DATA_FILE) as existing_data:
-    master_data = json.load(existing_data)
-f = open(DATA_FILE, "w")
+  lines = open(DATA_FILE).readlines()
+  for l in lines:
+    parts = l.split(":", 1)
+    master_data[parts[0]] = json.loads(parts[1])
+
 start_year = 2007
 end_year = 2016
 all_years_str = [str(y) for y in range(start_year, end_year + 1)]
@@ -357,6 +359,6 @@ for location in LOCATIONS:
           " half-months for " + place)
 serialized = ""
 for location in sorted(master_data.keys()):
-  serialized += location + ":" + json.dumps(master_data[location]) + "\n"
-f.write(serialized)
+  serialized += location + ":" + json.dumps(master_data[location], sort_keys=True) + "\n"
+open(DATA_FILE, "w").write(serialized)
 print("All done.")
