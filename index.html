@@ -404,12 +404,18 @@ input:checked + .slider:before {
       document.getElementById('popup').style.display = 'none';
       document.getElementById('sb').addEventListener('input', function(e) {
         var input = e.target.value;
+        input = input.replace(/,/g, ' ').trim();
+        input = input.replace(/\s+/g, ' ');
+        var inputParts = input.split(' ');
         filteredCities = [];
         for (var i = 0, city; city = cities[i]; i++) {
           var countryName = ctryCodes[city.split('|')[1]];
-          if (city.toLowerCase().indexOf(input.toLowerCase()) != -1 ||
-              countryName.toLowerCase().indexOf(input.toLowerCase()) != -1) {
-            filteredCities.push(city);
+          for (var j = 0, inputPart; inputPart = inputParts[j]; j++) {
+            inputPart = inputPart.trim();
+            if (city.toLowerCase().indexOf(inputPart.toLowerCase()) != -1 ||
+                countryName.toLowerCase().indexOf(inputPart.toLowerCase()) != -1) {
+              filteredCities.push(city);
+            }
           }
         }
         drawData();
