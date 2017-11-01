@@ -444,6 +444,7 @@ input:checked + .slider:before {
         var inputParts = input.split(' ');
         filteredCities = [];
         for (var i = 0, city; city = cities[i]; i++) {
+          var shouldShowCity = false;
           var countryCode = city.split('|')[1];
           var countryName = ctryCodes[countryCode];
           for (var j = 0, inputPart; inputPart = inputParts[j]; j++) {
@@ -453,8 +454,11 @@ input:checked + .slider:before {
                 countryName.toLowerCase().indexOf(lcPart) != -1 ||
                 (continents[countryCode] &&
                     continents[countryCode].toLowerCase().indexOf(lcPart) != -1)) {
-              filteredCities.push(city);
+              shouldShowCity = true;
             }
+          }
+          if (shouldShowCity) {
+            filteredCities.push(city);
           }
         }
         drawData();
