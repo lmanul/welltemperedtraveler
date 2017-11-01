@@ -30,4 +30,8 @@ to_copy = [
 ]
 
 for f in to_copy:
+  prev = os.getcwd()
+  os.chdir(os.path.join("/google/src/cloud/manucornet/", dest, "google3"))
+  os.system("g4 edit googledata/html/welltemperedtraveler/" + f)
+  os.chdir(prev)
   os.system("cp " + f + " " + full_dest)
