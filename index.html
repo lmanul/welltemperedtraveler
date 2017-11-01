@@ -19,6 +19,7 @@
       white-space: nowrap;
     }
     h1 {
+      cursor: pointer;
       font-size: 27px;
       font-weight: 100;
       line-height: 32px;
@@ -235,6 +236,7 @@ input:checked + .slider:before {
     var filteredCities = [];
     var data;
     var ctryCodes = {};
+    var continents = {};
     var localMonthNames = [];
     var resetButtonAdded = false;
     var selectedMonth = 0;
@@ -263,15 +265,15 @@ input:checked + .slider:before {
       }
       xhr.open('GET', 'data.txt', true);
       xhr.send(null);
-      var CtryXhr = new XMLHttpRequest();
-      CtryXhr.onreadystatechange = function() {
-        if (CtryXhr.readyState == XMLHttpRequest.DONE) {
-          ctryData = CtryXhr.responseText;
+      var ctryXhr = new XMLHttpRequest();
+      ctryXhr.onreadystatechange = function() {
+        if (ctryXhr.readyState == XMLHttpRequest.DONE) {
+          ctryData = ctryXhr.responseText;
           processCountryData(ctryData);
         }
       }
-      CtryXhr.open('GET', 'ctry_codes.txt', true);
-      CtryXhr.send(null);
+      ctryXhr.open('GET', 'ctry_codes.txt', true);
+      ctryXhr.send(null);
       // Also set the default value of the temp unit depending on locale.
       if (!!navigator && !!navigator.language && navigator.language == 'en-US') {
         document.getElementById('wacky').checked = false;
@@ -292,7 +294,30 @@ input:checked + .slider:before {
         var parts = line.split(':');
         ctryCodes[parts[0]] = parts[1];
       }
+
+      var continentXhr = new XMLHttpRequest();
+      continentXhr.onreadystatechange = function() {
+        if (continentXhr.readyState == XMLHttpRequest.DONE) {
+          continentData = continentXhr.responseText;
+          processContinentData(continentData);
+        }
+      }
+      continentXhr.open('GET', 'continents.txt', true);
+      continentXhr.send(null);
+
       window.setTimeout(assignTooltips, 5000);
+    }
+
+    function processContinentData(data) {
+      var lines = data.split('\n');
+      for (var i = 0, line; line = lines[i]; i++) {
+        var parts = line.split(':');
+        var theContinent = parts[0];
+        var currentCountryCodes = parts[1].split(',');
+        for (var j = 0, c; c = currentCountryCodes[j]; j++) {
+          continents[c] = theContinent;
+        }
+      }
     }
 
     function processData(data) {
@@ -419,11 +444,15 @@ input:checked + .slider:before {
         var inputParts = input.split(' ');
         filteredCities = [];
         for (var i = 0, city; city = cities[i]; i++) {
-          var countryName = ctryCodes[city.split('|')[1]];
+          var countryCode = city.split('|')[1];
+          var countryName = ctryCodes[countryCode];
           for (var j = 0, inputPart; inputPart = inputParts[j]; j++) {
             inputPart = inputPart.trim();
-            if (city.toLowerCase().indexOf(inputPart.toLowerCase()) != -1 ||
-                countryName.toLowerCase().indexOf(inputPart.toLowerCase()) != -1) {
+            var lcPart = inputPart.toLowerCase();
+            if (city.toLowerCase().indexOf(lcPart) != -1 ||
+                countryName.toLowerCase().indexOf(lcPart) != -1 ||
+                (continents[countryCode] &&
+                    continents[countryCode].toLowerCase().indexOf(lcPart) != -1)) {
               filteredCities.push(city);
             }
           }
@@ -589,7 +618,7 @@ input:checked + .slider:before {
 
 <body onload="loadData();">
   <div id="header">
-  <h1>The Well-Tempered Traveler</h1>
+  <h1 onclick="window.location.reload()">The Well-Tempered Traveler</h1>
 
   <div id="search"><input id="sb" placeholder="&#x1F50E;"></input></div>
 
