@@ -115,7 +115,7 @@ LOCATIONS = [
   "Minneapolis|US",
   "Minsk|BY",
   "Montevideo|UY",
-  #"Moscow|RU",
+  "Moscow|RU",
   "Mumbai|IN",
   "Munich|DE",
   "Nagoya|JP",
