@@ -5,15 +5,10 @@ import os
 import sys
 
 now = datetime.datetime.now()
-timestamp = str(now.year) + str(now.month) + str(now.day)
+timestamp = str(now.year) + str(now.month).zfill(2) + str(now.day).zfill(2)
 
 client_name = "welltemperedtraveler_" + timestamp
-os.system("g4d -f " + client_name)
-
-#if len(sys.argv) < 2:
-#  print("Please give me the name of your CitC client as an argument")
-#  sys.exit(1)
-#dest = sys.argv[1]
+os.system("source /etc/bash_completion.d/g4d && g4d -f " + client_name)
 
 full_dest = os.path.join("/google/src/cloud/manucornet/", client_name, "google3/googledata/html/welltemperedtraveler")
 
