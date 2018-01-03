@@ -15,7 +15,7 @@ os.system("g4d -f " + client_name)
 #  sys.exit(1)
 #dest = sys.argv[1]
 
-full_dest = os.path.join("/google/src/cloud/manucornet/", dest, "google3/googledata/html/welltemperedtraveler")
+full_dest = os.path.join("/google/src/cloud/manucornet/", client_name, "google3/googledata/html/welltemperedtraveler")
 
 if not os.path.exists(full_dest):
   print("I can't find the directory '" + full_dest + "'")
@@ -39,7 +39,7 @@ to_copy = [
 
 for f in to_copy:
   prev = os.getcwd()
-  os.chdir(os.path.join("/google/src/cloud/manucornet/", dest, "google3"))
+  os.chdir(os.path.join("/google/src/cloud/manucornet/", client_name, "google3"))
   os.system("g4 edit googledata/html/welltemperedtraveler/" + f)
   os.chdir(prev)
   os.system("cp " + f + " " + full_dest)
