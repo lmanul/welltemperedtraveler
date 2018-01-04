@@ -8,12 +8,12 @@ now = datetime.datetime.now()
 timestamp = str(now.year) + str(now.month).zfill(2) + str(now.day).zfill(2)
 
 client_name = "welltemperedtraveler_" + timestamp
-os.system("source /etc/bash_completion.d/g4d && g4d -f " + client_name)
 
 full_dest = os.path.join("/google/src/cloud/manucornet/", client_name, "google3/googledata/html/welltemperedtraveler")
+g3path = os.path.join("/google/src/cloud/manucornet/", client_name, "google3")
 
 if not os.path.exists(full_dest):
-  print("I can't find the directory '" + full_dest + "'")
+  print("Please run this command then call me again:\n\ng4d -f " + client_name)
   sys.exit(1)
 
 to_copy = [
@@ -34,7 +34,9 @@ to_copy = [
 
 for f in to_copy:
   prev = os.getcwd()
-  os.chdir(os.path.join("/google/src/cloud/manucornet/", client_name, "google3"))
+  os.chdir(g3path)
   os.system("g4 edit googledata/html/welltemperedtraveler/" + f)
   os.chdir(prev)
   os.system("cp " + f + " " + full_dest)
+
+print("\n\nNow please run:\n\ncd " + g3path + "\n\ng4 p\n\nAnd then\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d g4test")
