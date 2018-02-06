@@ -13,7 +13,7 @@ full_dest = os.path.join("/google/src/cloud/manucornet/", client_name, "google3/
 g3path = os.path.join("/google/src/cloud/manucornet/", client_name, "google3")
 
 if not os.path.exists(full_dest):
-  print("Please run this command then call me again:\n\ng4d -f " + client_name)
+  print("Please run this command then call me again from this directory:\n\ng4d -f " + client_name)
   sys.exit(1)
 
 to_copy = [
