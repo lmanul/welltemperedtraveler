@@ -39,4 +39,5 @@ for f in to_copy:
   os.chdir(prev)
   os.system("cp " + f + " " + full_dest)
 
-print("\n\nNow please run:\n\ncd " + g3path + "\n\ng4 p\n\nAnd then\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d g4test")
+print("\n\nNow please run:\n\ncd " + g3path + \
+  "\n\ng4 change\n\nAnd then\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d " + client_name)
