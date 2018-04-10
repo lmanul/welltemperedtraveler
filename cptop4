@@ -40,4 +40,5 @@ for f in to_copy:
   os.system("cp " + f + " " + full_dest)
 
 print("\n\nNow please run:\n\ncd " + g3path + \
-  "\n\ng4 change\n\nAnd then\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d " + client_name)
+    "\n\ng4 change (don't forget to add: 'OPTIMIZED_IMAGES=true')\n\n" + \
+    "And then\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d " + client_name)
