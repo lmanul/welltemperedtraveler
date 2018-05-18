@@ -5,7 +5,7 @@ import os
 import subprocess
 import sys
 
-USE_NEW_DATA_SOURCE = True
+USE_NEW_DATA_SOURCE = False
 DEBUG = False
 # https://en.wikipedia.org/wiki/ISO_3166-1
 LOCATIONS = [
@@ -55,6 +55,7 @@ LOCATIONS = [
   "Bishkek|KG",
   "Bissau|GW",
   "Bogotá|CO",
+  "Boulder|US",
   "Brasília|BR",
   "Bratislava|SK",
   "Brazzaville|CG",
