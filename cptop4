@@ -41,4 +41,4 @@ for f in to_copy:
 
 print("\n\nNow please run:\n\ncd " + g3path + \
     "\n\ng4 change (don't forget to add: 'OPTIMIZED_IMAGES=true')\n\n" + \
-    "And then\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d " + client_name)
+    "And then\n\ng4 revert -a\n\ng4 submit -c\n\nAnd then\n\ng4 citc -d " + client_name)
