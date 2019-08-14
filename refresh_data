@@ -5,6 +5,8 @@ import os
 import subprocess
 import sys
 
+from optparse import OptionParser
+
 USE_NEW_DATA_SOURCE = False
 DEBUG = False
 # https://en.wikipedia.org/wiki/ISO_3166-1
@@ -223,7 +225,7 @@ DREMEL_TEMPLATE = (
 def has_data(location):
   for half_month in master_data[location]:
     for data_point in master_data[location][half_month]:
-      if data_point != 0:
+      if data_point != -9999:
         return True
   return False
 
@@ -233,6 +235,12 @@ def array_has_data(the_array):
       return True
   return False
 
+parser = OptionParser()
+parser.add_option("-f", "--force", dest="force",
+                  action="store_true",
+                  help="Force refresh existing data")
+(options, args) = parser.parse_args()
+
 master_data = {}
 if os.path.exists(DATA_FILE):
   lines = open(DATA_FILE).readlines()
@@ -240,8 +248,8 @@ if os.path.exists(DATA_FILE):
     parts = l.split(":", 1)
     master_data[parts[0]] = json.loads(parts[1])
 
-start_year = 2007
-end_year = 2016
+start_year = 2009
+end_year = 2018
 all_years_str = [str(y) for y in range(start_year, end_year + 1)]
 start_date = str(start_year) + "0101"
 end_date = str(end_year) + "1231"
