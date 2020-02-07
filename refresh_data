@@ -84,11 +84,13 @@ if options.number_of_updates != 0:
       random_update_indices[str(index)] = True
 print("Will update indices " + str(random_update_indices))
 
-def finalize(master_data, DATA_FILE):
+def write_out(master_data, DATA_FILE):
   serialized = ""
   for location in sorted(master_data.keys()):
     serialized += location + ":" + json.dumps(master_data[location], sort_keys=True) + "\n"
-  open(DATA_FILE, "w").write(serialized)
+  with open(DATA_FILE, "w") as f:
+    f.write(serialized)
+    f.close()
 
 master_data = {}
 if os.path.exists(DATA_FILE):
@@ -243,5 +245,5 @@ for location in locations:
       print("Warning: only got " + str(len(master_data[location])) + \
           " half-months for " + place)
 
-finalize(master_data, DATA_FILE)
+write_out(master_data, DATA_FILE)
 print("All done.")
