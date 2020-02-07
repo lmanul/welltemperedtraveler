@@ -244,6 +244,7 @@ for location in locations:
     if len(master_data[location]) != 24:
       print("Warning: only got " + str(len(master_data[location])) + \
           " half-months for " + place)
+  # Write to disk after each location in case we get issues
+  write_out(master_data, DATA_FILE)
 
-write_out(master_data, DATA_FILE)
 print("All done.")
