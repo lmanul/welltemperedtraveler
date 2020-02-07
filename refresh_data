@@ -2,6 +2,7 @@
 
 import json
 import os
+import random
 import subprocess
 import sys
 
@@ -70,7 +71,18 @@ parser = OptionParser()
 parser.add_option("-f", "--force", dest="force",
                   action="store_true",
                   help="Force refresh existing data")
+parser.add_option("-n", "--number-of-updates", dest="number_of_updates",
+                  help="Force refresh a set of number of random locations", default=0)
 (options, args) = parser.parse_args()
+
+random_update_indices = {}
+if options.number_of_updates != 0:
+  number_of_updates = int(options.number_of_updates)
+  while len(random_update_indices) < number_of_updates:
+    index = int(random.random() * len(locations))
+    if str(index) not in random_update_indices:
+      random_update_indices[str(index)] = True
+print("Will update indices " + str(random_update_indices))
 
 def finalize(master_data, DATA_FILE):
   serialized = ""
@@ -90,7 +102,9 @@ end_year = 2019
 all_years_str = [str(y) for y in range(start_year, end_year + 1)]
 start_date = str(start_year) + "0101"
 end_date = str(end_year) + "1231"
+index = -1
 for location in locations:
+  index += 1
   (place, region_code) = location.split("|")
   buffer = len(place + ", " + region_code)
   sys.stdout.write(place + ", " + region_code)
@@ -98,9 +112,14 @@ for location in locations:
     sys.stdout.write(".")
   sys.stdout.write(" ")
   if location in master_data:
-    if has_data(location) and not options.force:
-        sys.stdout.write("✓\n")
-        continue
+    should_skip = has_data(location)
+    if options.force:
+      should_skip = False
+    if len(random_update_indices) > 0 and str(index) in random_update_indices:
+      should_skip = False
+    if should_skip:
+      sys.stdout.write("✓\n")
+      continue
   sys.stdout.flush()
   if place not in master_data:
     master_data[location] = {}
