@@ -16,7 +16,7 @@ Ashgabat|TM
 Asmara|ER
 Astana|KZ
 #Asunción|PY
-#Athens|GR
+Athens|GR
 Atlanta|US
 Auckland|NZ
 Austin|US
@@ -124,9 +124,11 @@ New York|US
 Nice|FR
 Ningbo|CN
 Nizhny Novgorod|RU
+Noumea|FR
 Novosibirsk|RU
 #Osaka|JP
 Oslo|NO
+Palermo|IT
 Paris|FR
 Pittsburgh|US
 Portland|US
@@ -171,6 +173,7 @@ Venice|IT
 Vienna|AT
 Vientiane|LA
 Vilnius|LT
+Vladivostok|RU
 Warsaw|PL
 #Washington DC|US
 Winnipeg|CA
