@@ -59,6 +59,7 @@ Chengdu|CN
 Chennai|IN
 Chicago|US
 Chongqing|CN
+Cleveland|US
 #Copenhagen|DK
 Dakar|SN
 Dallas|US
@@ -137,6 +138,7 @@ Riga|LV
 Rio de Janeiro|BR
 Rome|IT
 Saint Petersburg|RU
+Salt Lake City|US
 San Diego|US
 San Francisco|US
 San José|CR
