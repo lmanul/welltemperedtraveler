@@ -2,3 +2,7 @@
 * Reykjavik is reported as having no rain, but there's actually a lot, so the data is
 missing.
 * Tallin
+* Ottawa
+* Montreal
+* Quebec
+* Detroit
