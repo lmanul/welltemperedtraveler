@@ -14,9 +14,9 @@ Antananarivo|MG
 #Apia|WS
 Ashgabat|TM
 Asmara|ER
-Astana|KZ
+#Astana|KZ
 #Asunción|PY
-Athens|GR
+#Athens|GR
 Atlanta|US
 Auckland|NZ
 Austin|US
@@ -43,7 +43,7 @@ Bissau|GW
 Bogotá|CO
 Boston|US
 Boulder|US
-Brasília|BR
+#Brasília|BR
 Bratislava|SK
 Brazzaville|CG
 #Brussels|BE
@@ -84,7 +84,7 @@ Honolulu|US
 Houston|US
 Hyderabad|IN
 Islamabad|PK
-Istanbul|TR
+#Istanbul|TR
 Jakarta|ID
 #Johannesburg|ZA
 Kabul|AF
@@ -133,11 +133,12 @@ Oslo|NO
 Ottawa|CA
 Palermo|IT
 Paris|FR
+Philadelphia|US
 Pittsburgh|US
 Portland|US
 Prague|CZ
 Pune|IN
-Quebec|CA
+#Quebec|CA
 #Rabat|MA
 Reykjavík|IS
 Riga|LV
@@ -177,7 +178,7 @@ Venice|IT
 Vienna|AT
 Vientiane|LA
 Vilnius|LT
-Vladivostok|RU
+#Vladivostok|RU
 Warsaw|PL
 #Washington DC|US
 Winnipeg|CA
