@@ -19,6 +19,7 @@ Asmara|ER
 #Athens|GR
 Atlanta|US
 Auckland|NZ
+Augusta|US
 Austin|US
 #Avarua|CK
 Baghdad|IQ
@@ -55,11 +56,14 @@ Buenos Aires|AR
 Canberra|AU
 Caracas|VE
 Changsha|CN
+Charlotte|US
 Chengdu|CN
 Chennai|IN
 Chicago|US
 Chongqing|CN
+Cincinnati|US
 Cleveland|US
+Columbus|US
 #Copenhagen|DK
 Dakar|SN
 Dallas|US
@@ -83,6 +87,7 @@ Hong Kong|HK
 Honolulu|US
 Houston|US
 Hyderabad|IN
+Indianapolis|US
 Islamabad|PK
 #Istanbul|TR
 Jakarta|ID
@@ -112,6 +117,7 @@ Marrakesh|MA
 Mexico City|MX
 Miami|US
 Milan|IT
+Milwaukee|US
 Minneapolis|US
 Minsk|BY
 Montevideo|UY
@@ -126,7 +132,7 @@ New York|US
 Nice|FR
 Ningbo|CN
 Nizhny Novgorod|RU
-Noumea|FR
+#Noumea|FR
 Novosibirsk|RU
 #Osaka|JP
 Oslo|NO
@@ -138,7 +144,7 @@ Pittsburgh|US
 Portland|US
 Prague|CZ
 Pune|IN
-#Quebec|CA
+Quebec City|CA
 #Rabat|MA
 Reykjavík|IS
 Riga|LV
