@@ -65,6 +65,7 @@ Dakar|SN
 Dallas|US
 #Damascus|SY
 Denver|US
+Detroit|US
 Dhaka|BD
 #Dongguan|CN
 Dublin|IE
@@ -114,6 +115,7 @@ Milan|IT
 Minneapolis|US
 Minsk|BY
 Montevideo|UY
+Montreal|CA
 Moscow|RU
 Mumbai|IN
 Munich|DE
@@ -128,12 +130,14 @@ Noumea|FR
 Novosibirsk|RU
 #Osaka|JP
 Oslo|NO
+Ottawa|CA
 Palermo|IT
 Paris|FR
 Pittsburgh|US
 Portland|US
 Prague|CZ
 Pune|IN
+Quebec|CA
 #Rabat|MA
 Reykjavík|IS
 Riga|LV
