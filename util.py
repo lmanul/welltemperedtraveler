@@ -37,3 +37,14 @@ DREMEL_TEMPLATE = (
 '    geo.region_code = "%s") AS S '
 'ON W.StationId = S.Id '
 'ORDER BY Date;')
+
+def get_data_from_dremel(place, region_code):
+    command = ["echo", "'" + (util.DREMEL_TEMPLATE % (util.START_DATE, util.END_DATE, place, region_code)) + "'"]
+    echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
+    output = subprocess.check_output([
+        'dremel',
+        "--min_completion_ratio=" + MIN_COMPLETION_RATIO,
+        "--sql_dialect=GoogleSQL",
+    ], stdin=echo_ps.stdout, universal_newlines=True)
+    echo_ps.wait()
+    return output

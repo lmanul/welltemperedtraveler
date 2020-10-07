@@ -10,7 +10,6 @@ from optparse import OptionParser
 
 import util
 
-USE_NEW_DATA_SOURCE = False
 DEBUG = False
 
 # https://en.wikipedia.org/wiki/ISO_3166-1
@@ -92,15 +91,7 @@ for location in locations:
   sys.stdout.flush()
   if place not in master_data:
     master_data[location] = {}
-  command = ["echo", "'" + (util.DREMEL_TEMPLATE % (util.START_DATE, util.END_DATE, place, region_code)) + "'"]
-  echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
-  output = subprocess.check_output([
-      'dremel',
-      "--min_completion_ratio=" + MIN_COMPLETION_RATIO,
-      "--sql_dialect=GoogleSQL",
-      ], stdin=echo_ps.stdout, universal_newlines=True)
-  echo_ps.wait()
-  lines = output.split("\n")
+  lines = util.get_data_from_dremel(place, region_code).split("\n")
   data = {}
   for line in lines:
     parts = line.split("|")
