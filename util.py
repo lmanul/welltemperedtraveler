@@ -1,8 +1,10 @@
+USE_NEW_DATA_SOURCE = False
+
 START_YEAR = 2010
 START_DATE = str(START_YEAR) + "0101"
 END_YEAR = 2019
 END_DATE = str(END_YEAR) + "1231"
-ALL_YEARS_STR = [str(y) for y in range(start_year, end_year + 1)]
+ALL_YEARS_STR = [str(y) for y in range(START_YEAR, END_YEAR + 1)]
 
 
 DREMEL_TEMPLATE = (
