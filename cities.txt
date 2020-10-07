@@ -176,6 +176,7 @@ Tbilisi|GE
 Tehran|IR
 #Thimphu|BT
 Tianjin|CN
+Tirana|AL
 Tokyo|JP
 Toronto|CA
 Tunis|TN
