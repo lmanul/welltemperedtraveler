@@ -1,4 +1,7 @@
+import subprocess
+
 USE_NEW_DATA_SOURCE = False
+MIN_COMPLETION_RATIO = "1.0"
 
 START_YEAR = 2010
 START_DATE = str(START_YEAR) + "0101"
@@ -39,7 +42,7 @@ DREMEL_TEMPLATE = (
 'ORDER BY Date;')
 
 def get_data_from_dremel(place, region_code):
-    command = ["echo", "'" + (util.DREMEL_TEMPLATE % (util.START_DATE, util.END_DATE, place, region_code)) + "'"]
+    command = ["echo", "'" + (DREMEL_TEMPLATE % (START_DATE, END_DATE, place, region_code)) + "'"]
     echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
     output = subprocess.check_output([
         'dremel',

@@ -22,7 +22,6 @@ with open("cities.txt") as f:
     if not line.startswith("#"):
       locations.append(line.strip())
 
-MIN_COMPLETION_RATIO = "1.0"
 DATA_FILE = "data.txt"
 
 def has_data(location):
