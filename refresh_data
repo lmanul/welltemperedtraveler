@@ -8,6 +8,8 @@ import sys
 
 from optparse import OptionParser
 
+import util
+
 USE_NEW_DATA_SOURCE = False
 DEBUG = False
 
@@ -23,36 +25,6 @@ with open("cities.txt") as f:
 
 MIN_COMPLETION_RATIO = "1.0"
 DATA_FILE = "data.txt"
-DREMEL_TEMPLATE = (
-'SELECT Date, Location, Min_C, Mean_C, Max_C, Rain, Snow '
-#'SELECT Date, Location, Min_C, Mean_C, Max_C, Min_H, Mean_H, Max_H, Rain, Snow '
-'FROM '
-'  (SELECT date as Date, '
-'    station_id as StationId, '
-'    temp_c_min as Min_C, '
-'    temp_c_mean as Mean_C, '
-'    temp_c_max as Max_C, '
-#'    humidity_pct_min as Min_H, '
-#'    humidity_pct_mean as Mean_H, '
-#'    humidity_pct_max as Max_H, '
-'    rainfall_mm as Rain, '
-'    snowfall_mm as Snow '
-'  FROM '
-'    weather.historical.daily' + ('.new.capacitor' if USE_NEW_DATA_SOURCE else '') + ' '
-'  WHERE '
-'    (date >= "%s") AND (date <= "%s") AND '
-'    temp_c_max != -9999) AS W '
-'JOIN '
-'  (SELECT '
-'    id as Id, '
-'    CONCAT(geo.locality_name, ", ", geo.subdivision_1_name, ", ", geo.region_code) as Location '
-'  FROM '
-'    weather.stations' + ('.new.capacitor' if USE_NEW_DATA_SOURCE else '') + ' '
-'  WHERE '
-'    geo.locality_name = "%s" AND '
-'    geo.region_code = "%s") AS S '
-'ON W.StationId = S.Id '
-'ORDER BY Date;')
 
 def has_data(location):
   for half_month in master_data[location]:
@@ -99,11 +71,6 @@ if os.path.exists(DATA_FILE):
     parts = l.split(":", 1)
     master_data[parts[0]] = json.loads(parts[1])
 
-start_year = 2010
-end_year = 2019
-all_years_str = [str(y) for y in range(start_year, end_year + 1)]
-start_date = str(start_year) + "0101"
-end_date = str(end_year) + "1231"
 index = -1
 for location in locations:
   index += 1
@@ -125,7 +92,7 @@ for location in locations:
   sys.stdout.flush()
   if place not in master_data:
     master_data[location] = {}
-  command = ["echo", "'" + (DREMEL_TEMPLATE % (start_date, end_date, place, region_code)) + "'"]
+  command = ["echo", "'" + (util.DREMEL_TEMPLATE % (util.START_DATE, util.END_DATE, place, region_code)) + "'"]
   echo_ps = subprocess.Popen(" ".join(command), stdout=subprocess.PIPE, universal_newlines=True, shell=True)
   output = subprocess.check_output([
       'dremel',
@@ -161,7 +128,7 @@ for location in locations:
   # each year.
   # Let's start by reducing all this into one tuple for each half-month of each
   # year.
-  for y in all_years_str:
+  for y in util.ALL_YEARS_STR:
     for month in range(1, 13):
         for suff in range(1, 3):
           month_half = str(month) + "-" + str(suff)
@@ -204,7 +171,7 @@ for location in locations:
       array_of_average_temps = []
       array_of_max_temps = []
       array_of_rainfall = []
-      for y in all_years_str:
+      for y in util.ALL_YEARS_STR:
         if y in data and month_half in data[y]:
           if data[y][month_half][0] > -1000:
             array_of_min_temps.append(data[y][month_half][0])
@@ -240,7 +207,7 @@ for location in locations:
         rainfall_average = -9999
       master_data[location][month_half] = [min_temp_average, temp_average, max_temp_average, rainfall_average]
   # Done with this location
-  for y in all_years_str:
+  for y in util.ALL_YEARS_STR:
     if len(master_data[location]) != 24:
       print("Warning: only got " + str(len(master_data[location])) + \
           " half-months for " + place)
