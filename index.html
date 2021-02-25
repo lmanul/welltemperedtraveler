@@ -7,233 +7,233 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <style>
     body {
-      font-family: Roboto;
-      margin: 0;
+        font-family: Roboto;
+        margin: 0;
     }
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
     }
     #header {
-      background: #f1f1f1;
-      margin-bottom: 10px;
-      min-width: 800px;
-      padding: 5px 20px;
-      white-space: nowrap;
+        background: #f1f1f1;
+        margin-bottom: 10px;
+        min-width: 800px;
+        padding: 5px 20px;
+        white-space: nowrap;
     }
     h1 {
-      cursor: pointer;
-      font-size: 27px;
-      font-weight: 100;
-      line-height: 32px;
+        cursor: pointer;
+        font-size: 27px;
+        font-weight: 100;
+        line-height: 32px;
     }
     #search {
-      margin: 0 20px;
+        margin: 0 20px;
     }
     #search input {
-      font-size: 19px;
-      padding: 5px;
+        font-size: 19px;
+        padding: 5px;
     }
     #feedback {
-      text-align: center;
+        text-align: center;
     }
     h1, #search {
-      vertical-align: middle;
+        vertical-align: middle;
     }
     h1, #search, #unit_switch {
-      display: inline-block;
+        display: inline-block;
     }
     #unit_switch {
-      margin-right: 20px;
+        margin-right: 20px;
     }
     /* Pop-up */
     #popup {
-      background-color: #fff;
-      border: 1px solid #222;
-      box-shadow: 15px 15px 23px rgba(0, 0, 0, 0.4);
-      display: none;
-      padding: 10px;
-      position: fixed;
-      width: 100px;
+        background-color: #fff;
+        border: 1px solid #222;
+        box-shadow: 15px 15px 23px rgba(0, 0, 0, 0.4);
+        display: none;
+        padding: 10px;
+        position: fixed;
+        width: 100px;
     }
     #popup img {
-      vertical-align: middle;
-      width: 13px;
+        vertical-align: middle;
+        width: 13px;
     }
     /* Table */
     #t {
-      margin: 20px auto;
-      text-align: center;
-      width: 1080px; /* 12 * 80 + 120 */
+        margin: 20px auto;
+        text-align: center;
+        width: 1080px; /* 12 * 80 + 120 */
     }
     .reset {
-      cursor: pointer;
+        cursor: pointer;
     }
     /* Header */
     .lh {
-      overflow: hidden;
-      padding-right: 5px;
-      text-overflow: ellipsis;
-      width: 120px;
+        overflow: hidden;
+        padding-right: 5px;
+        text-overflow: ellipsis;
+        width: 120px;
     }
     .lh span {
-      white-space: nowrap;
+        white-space: nowrap;
     }
     /* Line */
     .l {
-      border-bottom: 1px solid #555;
-      display: inline-block;
-      white-space: nowrap;
+        border-bottom: 1px solid #555;
+        display: inline-block;
+        white-space: nowrap;
     }
     /* Cell */
     .c {
-      height: 40px;
-      padding: 7px;
-      text-align: center;
-      width: 40px;
+        height: 40px;
+        padding: 7px;
+        text-align: center;
+        width: 40px;
     }
     .c:hover {
-      background-image: url('dot.png');
+        background-image: url('dot.png');
     }
     /* Rainfall icon */
     .rf {
-      pointer-events: none;
+        pointer-events: none;
     }
     .p.lh {
-      text-align: center;
+        text-align: center;
     }
     .c.e {
-      border-right: 1px solid #555;
+        border-right: 1px solid #555;
     }
     .c.f {
-      border-left: 1px solid #555;
+        border-left: 1px solid #555;
     }
     .ch, .lh, .c {
-      display: inline-block;
+        display: inline-block;
     }
     .lh, .c {
-      vertical-align: middle;
+        vertical-align: middle;
     }
     .ch {
-      cursor: pointer;
-      font-weight: bold;
-      padding: 7px 0;
-      text-align: center;
-      width: 80px;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 7px 0;
+        text-align: center;
+        width: 80px;
     }
     .ch:hover {
-      background-color: rgba(35, 133, 255, 0.2);
+        background-color: rgba(35, 133, 255, 0.2);
     }
     .ch.sel {
-      background-color: rgb(35, 133, 255);
-      color: #fff;
+        background-color: rgb(35, 133, 255);
+        color: #fff;
     }
     #legend {
-      display: inline-block;
+        display: inline-block;
     }
     #legend img {
-      height: 50px;
-      vertical-align: middle;
+        height: 50px;
+        vertical-align: middle;
     }
     #scale {
-      display: inline-block;
+        display: inline-block;
     }
     #scale .c {
-      height: 25px;
-      width: 25px;
+        height: 25px;
+        width: 25px;
     }
     #footer {
-      font-size: 12px;
-      margin: 25px 0;
-      text-align: center;
+        font-size: 12px;
+        margin: 25px 0;
+        text-align: center;
     }
 
     /* Slider styles */
-.switch {
-  position: relative;
-  display: inline-block;
-  height: 34px;
-  vertical-align: middle;
-  width: 60px;
-}
+    .switch {
+        position: relative;
+        display: inline-block;
+        height: 34px;
+        vertical-align: middle;
+        width: 60px;
+    }
 
-.switch input {display:none;}
+    .switch input {display:none;}
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #f00;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #f00;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
 
-input:checked + .slider {
-  background-color: #2196F3;
-}
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
 
-.slider.round:before {
-  border-radius: 50%;
-}
+    .slider.round:before {
+        border-radius: 50%;
+    }
 
 
-  /* Spinner styles */
-  .spinner {
-    animation: spin 2s linear infinite;
-    border: 10px solid #f3f3f3;
-    border-top: 10px solid #3498db;
-    border-radius: 50%;
-    display: inline-block;
-    height: 120px;
-    width: 120px;
-  }
+    /* Spinner styles */
+    .spinner {
+        animation: spin 2s linear infinite;
+        border: 10px solid #f3f3f3;
+        border-top: 10px solid #3498db;
+        border-radius: 50%;
+        display: inline-block;
+        height: 120px;
+        width: 120px;
+    }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
   </style>
   <script>
-  COLORS = [
-    [-15, [0, 57, 191]],   // Inhumanely cold, very dark blue
-    [-8, [0, 78, 234]],    // Freezing, dark blue
-    [3, [0, 167, 239]],    // Cold, blue
-    [12, [5, 255, 217]],   // Chilly, turquoise
-    [23, [3, 186, 0]],     // Comfy, green
-    [27, [255, 255, 0]],   // Warm, yellow
-    [29, [255, 140, 0]],   // A bit too warm, orange
-    [33, [255, 0, 34]],    // Very hot, red
-    [40, [148, 0, 0]],    // Hellish, dark red
-  ]
+    COLORS = [
+      [-15, [0, 57, 191]],   // Inhumanely cold, very dark blue
+      [-8, [0, 78, 234]],    // Freezing, dark blue
+      [3, [0, 167, 239]],    // Cold, blue
+      [12, [5, 255, 217]],   // Chilly, turquoise
+      [23, [3, 186, 0]],     // Comfy, green
+      [27, [255, 255, 0]],   // Warm, yellow
+      [29, [255, 140, 0]],   // A bit too warm, orange
+      [33, [255, 0, 34]],    // Very hot, red
+      [40, [148, 0, 0]],    // Hellish, dark red
+    ]
     var cities = [];
     var filteredCities = [];
     var data;
@@ -624,37 +624,38 @@ input:checked + .slider:before {
 
 <body onload="loadData();">
   <div id="header">
-  <h1 onclick="window.location.reload()">The Well-Tempered Traveler</h1>
+    <h1 onclick="window.location.reload()">The Well-Tempered Traveler</h1>
 
-  <div id="search"><input id="sb" placeholder="&#x1F50E;"></input></div>
+    <div id="search"><input id="sb" placeholder="&#x1F50E;"></input></div>
 
-  <div id="unit_switch">
-  <span>&#176;F</span>
-  <label class="switch">
-    <input id="wacky" type="checkbox" checked>
-    <span class="slider round"></span>
-  </label>
-  <span>&#176;C</span>
+    <div id="unit_switch">
+      <span>&#176;F</span>
+      <label class="switch">
+        <input id="wacky" type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+      <span>&#176;C</span>
+    </div>
+
+    <div id="legend">
+      <img src="cold.png" alt="Cold">
+      <div id="scale"></div>
+      <img src="hot.png" alt="Hot">
+    </div>
+  </div>
+  <div id="t"><div class="spinner"></div></div>
+
+  <div id="footer">
+    Made from weather data collected over the past 10
+    years
+    &nbsp;–&nbsp;
+    <a
+      href="https://docs.google.com/forms/d/e/1FAIpQLScmzOSqC_x6-yORUuubtfBlXML8Z3_LSVQnI6wgbbGWtds5Ww/viewform?usp=sf_link">Missing a city?</a>
+    &nbsp;–&nbsp;
+    <a href="https://www.google.com/intl/en/policies/">Privacy &amp; Terms</a>
   </div>
 
-  <div id="legend">
-    <img src="cold.png" alt="Cold">
-    <div id="scale"></div>
-    <img src="hot.png" alt="Hot">
-  </div>
-</div>
-<div id="t"><div class="spinner"></div></div>
-<div id="popup"></div>
-
-<div id="footer">
-  Made from weather data collected over the past 10
-  years
-  &nbsp;–&nbsp;
-  <a
-  href="https://docs.google.com/forms/d/e/1FAIpQLScmzOSqC_x6-yORUuubtfBlXML8Z3_LSVQnI6wgbbGWtds5Ww/viewform?usp=sf_link">Missing a city?</a>
-  &nbsp;–&nbsp;
-  <a href="https://www.google.com/intl/en/policies/">Privacy &amp; Terms</a>
-</div>
+  <div id="popup"></div>
 
 </body>
 </html>
