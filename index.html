@@ -404,8 +404,8 @@
                 format(rainfall, 'mm') + '</td></tr>' +
             '</table>';
         popup.style.display = 'inline-block';
-        popup.style.left = e.clientX + 20;
-        popup.style.top = e.clientY + 20;
+        popup.style.left = (e.clientX + 20) + 'px';
+        popup.style.top = (e.clientY + 20) + 'px';
         return true;
       });
       document.getElementById('t').addEventListener('mouseout', function() {
