@@ -144,7 +144,7 @@ Pittsburgh|US
 Portland|US
 Prague|CZ
 Pune|IN
-Quebec City|CA
+Quebec|CA
 #Rabat|MA
 Reykjavík|IS
 Riga|LV
