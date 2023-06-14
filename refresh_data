@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+
+import json
+import os
+import shlex
+import subprocess
+
+API_KEY_ENV_VAR_NAME = "OPEN_WEATHER_API_KEY"
+URL_PREFIX = "https://history.openweathermap.org/data/2.5/history/city?"
+
+def read_latlng():
+    data = []
+    with open("latlng.txt") as f:
+        lines = f.readlines()
+        for l in lines:
+            l = l.strip()
+            city, country_code, latlng = l.split("|")
+            data.append([city, country_code, latlng])
+    return data
+
+if __name__ == "__main__":
+    if API_KEY_ENV_VAR_NAME not in os.environ:
+        print(
+            "Please set the "
+            "'" + API_KEY_ENV_VAR_NAME + "' "
+            "environment variable to your API key"
+        )
+    LATLNG = read_latlng()
+
+    for entry in LATLNG:
+        city, country_code, latlng = entry
+        lat, lng = latlng.split(",")
+        url = (
+          "" + URL_PREFIX + ""
+          "lat=" + lat + "&"
+          "lon=" + lng + "&"
+          "type=hour&"
+          "appid=" + os.environ[API_KEY_ENV_VAR_NAME] + ""
+        )
+        print(url)
