@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Well-Tempered Traveler</title>
-  <link rel="icon" href="favicon.png" />
+  <link rel="icon" href="img/favicon.png" />
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <style>
     body {
@@ -92,7 +92,7 @@
         width: 40px;
     }
     .c:hover {
-        background-image: url('dot.png');
+        background-image: url('img/dot.png');
     }
     /* Rainfall icon */
     .rf {
@@ -396,11 +396,11 @@
         }
         popup.innerHTML =
             '<table style="text-align: center;">' +
-            '<tr><td><img src="hot.png"></td><td>' + format(tmpMax, unit) + '</td></tr>' +
+            '<tr><td><img src="img/hot.png"></td><td>' + format(tmpMax, unit) + '</td></tr>' +
             '<tr><td><span style="color: #ddd;">|</span></td><td>' +
                 format(tmpAvg, unit) + '</td></tr>' +
-            '<tr><td><img src="cold.png"></td><td>' + format(tmpMin, unit) + '</td></tr>' +
-            '<tr><td><img src="droplet.png"></td><td>' +
+            '<tr><td><img src="img/cold.png"></td><td>' + format(tmpMin, unit) + '</td></tr>' +
+            '<tr><td><img src="img/droplet.png"></td><td>' +
                 format(rainfall, 'mm') + '</td></tr>' +
             '</table>';
         popup.style.display = 'inline-block';
@@ -485,7 +485,7 @@
       var pivot = document.createElement('div');
       if (!resetButtonAdded) {
         var resetIcon = document.createElement('img');
-        resetIcon.setAttribute('src', 'reset.png');
+        resetIcon.setAttribute('src', 'img/reset.png');
         resetIcon.className = 'reset';
         pivot.appendChild(resetIcon);
         resetButtonAdded = true;
@@ -526,7 +526,7 @@
       cell.style.backgroundColor = getCellColor(parseInt(average_temperature));
       var rainImage = document.createElement('img');
       rainImage.classList.add('rf');
-      rainImage.src = 'droplet.png';
+      rainImage.src = 'img/droplet.png';
       rainImage.style.opacity = Math.min(1.0, parseInt(rainfall) / 14.0);
       cell.appendChild(rainImage);
       container.appendChild(cell);
@@ -638,9 +638,9 @@
     </div>
 
     <div id="legend">
-      <img src="cold.png" alt="Cold">
+      <img src="img/cold.png" alt="Cold">
       <div id="scale"></div>
-      <img src="hot.png" alt="Hot">
+      <img src="img/hot.png" alt="Hot">
     </div>
   </div>
   <div id="t"><div class="spinner"></div></div>
