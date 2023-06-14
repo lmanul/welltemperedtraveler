@@ -15,7 +15,7 @@ def get_cities():
     for l in lines:
       l = l.strip()
       if l.startswith("#"):
-        continue
+        l = l[1:]
       city, country_code = l.split("|")
       cities.append([city, country_code])
   return cities

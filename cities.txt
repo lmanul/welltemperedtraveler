@@ -30,7 +30,6 @@ Bangkok|TH
 Bangui|CF
 #Banjul|GM
 Barcelona|ES
-#Basse-Terre|GP
 Basseterre|KN
 Beijing|CN
 #Beirut|LB
