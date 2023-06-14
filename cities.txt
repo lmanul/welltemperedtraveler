@@ -83,7 +83,7 @@ Guangzhou|CN
 Havana|CU
 Helsinki|FI
 #Hồ Chí Minh City|VN
-Hong Kong|HK
+Hong Kong|CN
 Honolulu|US
 Houston|US
 Hyderabad|IN
