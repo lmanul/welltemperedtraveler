@@ -8,54 +8,64 @@ import subprocess
 API_KEY_ENV_VAR_NAME = "OPEN_WEATHER_API_KEY"
 URL_PREFIX = "http://api.openweathermap.org/geo/1.0/direct?"
 
+
 def get_cities():
-  cities = []
-  with open("cities.txt") as f:
-    lines = f.readlines()
-    for l in lines:
-      l = l.strip()
-      if l.startswith("#"):
-        l = l[1:]
-      city, country_code = l.split("|")
-      cities.append([city, country_code])
-  return cities
+    cities = []
+    with open("cities.txt") as f:
+        lines = f.readlines()
+        for l in lines:
+            l = l.strip()
+            if l.startswith("#"):
+                l = l[1:]
+            city, country_code = l.split("|")
+            cities.append([city, country_code])
+    return cities
+
 
 def get_latlng(cities):
-  latlng = {}
-  for city in cities:
-    print(str(city) + "... ", end="", flush=True)
-    url = ("" + URL_PREFIX + ""
-           "q=" + city[0] + ",," + city[1] + "&"
-           "limit=1&"
-           "appid=" + os.environ[API_KEY_ENV_VAR_NAME])
-    # Poor man's URL encode
-    url = url.replace(" ", "%20")
-    cmd = "curl " + "'" + url + "'"
-    raw = subprocess.check_output(
-      shlex.split(cmd), stderr=subprocess.DEVNULL).decode()
-    obj = json.loads(raw)
-    if len(obj) == 0:
-      print("\n\nWarning, no result for " + str(city) + "\n\n")
-      continue
-    result = obj[0]
-    if "lat" in result and "lon" in result:
-      latlng[city[0] + "|" + city[1]] = \
-          str(result["lat"]) + "," + str(result["lon"])
-  return latlng
+    latlng = {}
+    for city in cities:
+        print(str(city) + "... ", end="", flush=True)
+        url = (
+            "" + URL_PREFIX + ""
+            "q=" + city[0] + ",," + city[1] + "&"
+            "limit=1&"
+            "appid=" + os.environ[API_KEY_ENV_VAR_NAME]
+        )
+        # Poor man's URL encode
+        url = url.replace(" ", "%20")
+        cmd = "curl " + "'" + url + "'"
+        raw = subprocess.check_output(
+            shlex.split(cmd), stderr=subprocess.DEVNULL
+        ).decode()
+        obj = json.loads(raw)
+        if len(obj) == 0:
+            print("\n\nWarning, no result for " + str(city) + "\n\n")
+            continue
+        result = obj[0]
+        if "lat" in result and "lon" in result:
+            latlng[city[0] + "|" + city[1]] = (
+                str(result["lat"]) + "," + str(result["lon"])
+            )
+    return latlng
+
 
 def write_out(latlng):
-  with open("latlng.txt", "w") as f:
-    lines = []
-    for city in latlng:
-      lines.append(city + "|" + latlng[city])
-    lines = sorted(lines)
-    f.write("\n".join(lines))
+    with open("latlng.txt", "w") as f:
+        lines = []
+        for city in latlng:
+            lines.append(city + "|" + latlng[city])
+        lines = sorted(lines)
+        f.write("\n".join(lines))
+
 
 if __name__ == "__main__":
-  if API_KEY_ENV_VAR_NAME not in os.environ:
-    print("Please set the "
-          "'" + API_KEY_ENV_VAR_NAME + "' "
-          "environment variable to your API key")
-  CITIES = get_cities()
-  LATLNG = get_latlng(CITIES)
-  write_out(LATLNG)
+    if API_KEY_ENV_VAR_NAME not in os.environ:
+        print(
+            "Please set the "
+            "'" + API_KEY_ENV_VAR_NAME + "' "
+            "environment variable to your API key"
+        )
+    CITIES = get_cities()
+    LATLNG = get_latlng(CITIES)
+    write_out(LATLNG)
