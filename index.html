@@ -91,6 +91,10 @@
         text-align: center;
         width: 40px;
     }
+    /* Double cell */
+    .c.dbl {
+        width: 80px;
+    }
     .c:hover {
         background-image: url('img/dot.png');
     }
@@ -234,6 +238,9 @@
       [33, [255, 0, 34]],    // Very hot, red
       [40, [148, 0, 0]],    // Hellish, dark red
     ]
+    // Whether to use half-months (if full months, this is false). Depends on
+    // we data we have.
+    const USE_HALF_MONTH_RESOLUTION = true;
     var cities = [];
     var filteredCities = [];
     var data;
@@ -322,20 +329,52 @@
       }
     }
 
+    const mergedValue = (data, city, month, index) => {
+      const one = data[city][month + '-1'][index];
+      const two = data[city][month + '-2'][index];
+      if (one == -9999 || two == -9999) {
+        return -9999;
+      }
+      return Math.round((one + two) / 2);
+    };
+
+    const postProcessDataForWholeMonths = (data) => {
+      for (const city of cities) {
+        if (data[city].length == 12) {
+          // Data is formatted the way we want, nothing to do.
+          return;
+        }
+        for (let m = 1; m <= 12; m++) {
+          data[city][m] = [
+            mergedValue(data, city, m, 0),
+            mergedValue(data, city, m, 1),
+            mergedValue(data, city, m, 2),
+            mergedValue(data, city, m, 3),
+          ];
+          delete data[city][m + '-1'];
+          delete data[city][m + '-2'];
+        }
+      }
+    };
+
     function processData(data) {
-      // More than 6 half-months with a temp and we assume we have data.
-      var threshold = 6;
+      // More than 6 half-months (or 3 months) with a temp and we assume we
+      // have data.
+      var threshold = USE_HALF_MONTH_RESOLUTION ? 6 : 3;
       for (city in data) {
-        var halfMonthsWithData = 0;
-        for (var halfMonth in data[city]) {
-          if (data[city][halfMonth][1] != -9999) {
-            halfMonthsWithData++;
-            if (halfMonthsWithData >= threshold) {
+        var cellsWithData = 0;
+        for (let cell in data[city]) {
+          if (data[city][cell][1] != -9999) {
+            cellsWithData++;
+            if (cellsWithData >= threshold) {
               cities.push(city);
               break;
             }
           }
         }
+      }
+      if (!USE_HALF_MONTH_RESOLUTION) {
+        postProcessDataForWholeMonths(data);
       }
       cities.sort();
       filteredCities = cities;
@@ -506,16 +545,19 @@
       table.appendChild(colHeaders);
     }
 
-    function showSingleCell(city, halfMonth, oddNumberCell, firstCell,
-          container) {
-      var tmps = data[city][halfMonth];
+    function showSingleCell(city, cell, oddNumberCell, firstCell, container) {
+      var tmps = data[city][cell];
       var minTmp = tmps[0];
       var average_temperature = tmps[1];
       var maxTmp = tmps[2];
       var rainfall = tmps[3];
       var cell = document.createElement('div');
       cell.classList.add('c');
-      cell.classList.add(oddNumberCell ? 's' : 'e');
+      if (USE_HALF_MONTH_RESOLUTION) {
+        cell.classList.add(oddNumberCell ? 's' : 'e');
+      } else {
+        cell.classList.add('dbl');
+      }
       cell.setAttribute('tmp-min', '' + minTmp);
       cell.setAttribute('tmp-avg', '' + average_temperature);
       cell.setAttribute('tmp-max', '' + maxTmp);
@@ -547,13 +589,17 @@
       line.appendChild(cityNameHeader);
       var i = 0;
       for (var month = 1; month < 13; month++) {
-        for (var suffix = 1; suffix < 3; suffix++) {
-          showSingleCell(
-            city, '' + month + '-' + suffix, i % 2 == 0, i == 0, line);
-          i++;
+        if (USE_HALF_MONTH_RESOLUTION) {
+          for (var suffix = 1; suffix < 3; suffix++) {
+            showSingleCell(
+              city, '' + month + '-' + suffix, i % 2 == 0, i == 0, line);
+            i++;
+          }
+        } else {
+            showSingleCell(
+              city, '' + month, undefined, i == 0, line);
+            i++;
         }
-      }
-      for (halfMonth in data[city]) {
       }
       document.getElementById('t').appendChild(line);
     }
@@ -569,9 +615,11 @@
       var meanTemps = [];
       var maxTemps = [];
       var rainfalls = [];
+      // If we use whole months, we'll just add the same number twice before
+      // averaging, which is mildly silly.
       for (var i = 1; i < 3; i++) {
-        var halfMonth = '' + monthNumber + '-' + i;
-        var tmps = data[city][halfMonth];
+        const cell = '' + monthNumber + (USE_HALF_MONTH_RESOLUTION ? ('-' + i) : '');
+        var tmps = data[city][cell];
         for (var j = 0; j < tmps.length; j++) {
           if (tmps[j] == -9999 || tmps[j] == '-9999') {
             return -9999;
