@@ -1,0 +1,147 @@
+#!/usr/bin/python
+
+# Data coming from https://www.ncei.noaa.gov/data/global-summary-of-the-month/archive/
+
+import csv
+import json
+import os
+import random
+
+from ncei_station_names import NAMES, NCEI_COUNTRY_CODES
+
+DATA_FILE = "data.txt"
+DATA_DIR = os.path.expanduser("~/gsom-latest")
+KEYS = ["TMIN", "TAVG", "TMAX", "PRCP"]
+SPAN_YEARS = 10
+
+DATA = {}
+
+def find_csv_files_for_city(city, country_code):
+    key = city + "|" + country_code
+    ncei_country_code = NCEI_COUNTRY_CODES[country_code] if country_code in NCEI_COUNTRY_CODES else country_code
+    station_name = NAMES[key] if key in NAMES else city.upper()
+    all_csvs = [f for f in os.listdir(DATA_DIR) if f.endswith(".csv")]
+    matching_files = []
+    cities_matching_this_country = []
+    for csv_file in all_csvs:
+        with open(os.path.join(DATA_DIR, csv_file)) as f:
+            head = [next(f) for _ in range(2)]
+            reader = csv.DictReader(head)
+            for row in reader:
+                # There should be just one row
+                # print(row["NAME"])
+                if row["NAME"].endswith(ncei_country_code):
+                    name_without_country = row["NAME"][0:-4]
+                    cities_matching_this_country.append(name_without_country)
+                    if name_without_country.startswith(station_name):
+                        print("Matching " + city + " to " + name_without_country)
+                        matching_files.append(csv_file)
+                    #country_matching_files.append(csv_file)
+    if len(matching_files) == 0:
+        print("Didn't find an exact match for " + city + ", matches: ")
+        print(sorted(cities_matching_this_country))
+    elif len(matching_files) == 1:
+        print("Found file: " + matching_files[0])
+        return matching_files[0]
+    else:
+        print("Found more than one file " + str(matching_files))
+
+def reduce(data):
+    reduced = {}
+    all_dates = sorted(data.keys())
+
+    months = 0
+    while months < 12:
+        for key in KEYS:
+            count = 0
+            accumulator = 0.0
+            for i in range(SPAN_YEARS):
+                date = all_dates[i * 12 + months]
+                month = str(int(date.split("-")[1]))
+                if key in data[date]:
+                    accumulator += float(data[date][key])
+                    count += 1
+            if key == "PRCP":
+                # Unit change, cm, mm
+                accumulator /= 10
+            if month not in reduced:
+                reduced[month] = []
+            if count == 0:
+                reduced[month].append(-9999)
+            else:
+                reduced[month].append(round(accumulator / count))
+        months += 1
+
+    return reduced
+
+def refresh_data_for_one_city(city, country_code):
+    print("Getting data for " + city + ", " + country_code + "...")
+    result = {}
+    csvf = find_csv_files_for_city(city, country_code)
+    if csvf:
+        latest_date = "0"
+        with open(os.path.join(DATA_DIR, csvf), "r") as f:
+            data = csv.DictReader(f)
+            for row in data:
+                date = row["DATE"]
+                if date > latest_date:
+                    latest_date = date
+
+        end = latest_date
+        (end_year, end_month) = end.split("-")
+        start_year = int(end_year) - SPAN_YEARS
+        start_month = end_month
+        start = str(start_year) + "-" + start_month
+        print(start + " < y <= " + end)
+
+        for year in range(start_year, int(end_year) + 1):
+            for month in range(1, 13):
+                key = str(year) + "-" + str(month).zfill(2)
+                if key > start and key <= end:
+                    result[key] = {}
+        assert len(result.keys()) == 12 * SPAN_YEARS
+
+        with open(os.path.join(DATA_DIR, csvf), "r") as f:
+            data = csv.DictReader(f)
+            for row in data:
+                if row["DATE"] in result:
+                    # We're in scope
+                    for key in KEYS:
+                        if row[key].strip():
+                            result[row["DATE"]][key] = row[key]
+
+        reduced = reduce(result)
+        serialized = json.dumps(reduced)
+        missing = serialized.count("-9999")
+        if missing < 5:
+            DATA[city + "|" + country_code] = reduced
+        else:
+            print(str(missing) + " missing data points, not updating")
+
+def read_existing_data():
+    with open("data.txt", "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            line = line.strip()
+            (key, value) = line.split(":", 1)
+            DATA[key] = json.loads(value)
+
+def write_out(master_data, data_file):
+    serialized = ""
+    for location in sorted(master_data.keys()):
+        serialized += location + ":" + json.dumps(master_data[location], sort_keys=True) + "\n"
+        with open(data_file, "w") as f:
+            f.write(serialized)
+
+def main():
+    read_existing_data()
+    locations = sorted(DATA.keys())
+    index = int(random.random() * len(locations))
+    (city, country) = locations[index].split("|")
+    # refresh_data_for_one_city("Paris", "FR")
+    refresh_data_for_one_city(city, country)
+    # refresh_data_for_one_city("Florence", "IT")
+    write_out(DATA, DATA_FILE)
+
+if __name__ == "__main__":
+    main()
