@@ -33,7 +33,9 @@ def find_csv_files_for_city(city, country_code):
                 if row["NAME"].endswith(ncei_country_code):
                     name_without_country = row["NAME"][0:-4]
                     cities_matching_this_country.append(name_without_country)
-                    if name_without_country.startswith(station_name):
+                    if name_without_country == station_name:
+                        matching_files = [csv_file]
+                    elif name_without_country.startswith(station_name):
                         print("Matching " + city + " to " + name_without_country)
                         matching_files.append(csv_file)
                     #country_matching_files.append(csv_file)
