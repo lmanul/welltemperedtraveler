@@ -6,6 +6,7 @@ import csv
 import json
 import os
 import random
+import sys
 
 from ncei_station_names import NAMES, NCEI_COUNTRY_CODES
 
@@ -109,7 +110,7 @@ def refresh_data_for_one_city(city, country_code):
                 if row["DATE"] in result:
                     # We're in scope
                     for key in KEYS:
-                        if row[key].strip():
+                        if key in row and row[key].strip():
                             result[row["DATE"]][key] = row[key]
 
         reduced = reduce(result)
@@ -128,6 +129,11 @@ def read_existing_data():
             (key, value) = line.split(":", 1)
             DATA[key] = json.loads(value)
 
+def read_cities():
+    with open("cities.txt", "r") as f:
+        lines = f.readlines()
+        return [l.strip() for l in lines]
+
 def write_out(master_data, data_file):
     serialized = ""
     for location in sorted(master_data.keys()):
@@ -136,13 +142,17 @@ def write_out(master_data, data_file):
             f.write(serialized)
 
 def main():
+    chosen = None
+    if len(sys.argv) > 1:
+        chosen = sys.argv[1]
     read_existing_data()
-    locations = sorted(DATA.keys())
+    locations = sorted(read_cities())
     index = int(random.random() * len(locations))
-    (city, country) = locations[index].split("|")
-    # refresh_data_for_one_city("Paris", "FR")
+    if chosen:
+        (city, country) = chosen.split("|")
+    else:
+        (city, country) = locations[index].split("|")
     refresh_data_for_one_city(city, country)
-    # refresh_data_for_one_city("Florence", "IT")
     write_out(DATA, DATA_FILE)
 
 if __name__ == "__main__":

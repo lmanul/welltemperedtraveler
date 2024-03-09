@@ -4,19 +4,19 @@ Accra|GH
 Adamstown|PN
 Addis Ababa|ET
 Algiers|DZ
-#Alofi|NU
+Alofi|NU
 Amman|JO
-#Amsterdam|NL
+Amsterdam|NL
 Anchorage|US
-#Andorra la Vella|AD
+Andorra la Vella|AD
 Ankara|TR
 Antananarivo|MG
-#Apia|WS
+Apia|WS
 Ashgabat|TM
 Asmara|ER
-#Astana|KZ
-#Asunción|PY
-#Athens|GR
+Astana|KZ
+Asunción|PY
+Athens|GR
 Atlanta|US
 Auckland|NZ
 Augusta|US
@@ -32,12 +32,12 @@ Bangui|CF
 Barcelona|ES
 Basseterre|KN
 Beijing|CN
-#Beirut|LB
+Beirut|LB
 Belgrade|RS
-#Belmopan|BZ
+Belmopan|BZ
 Berlin|DE
 Bengaluru|IN
-#Berne|CH
+Berne|CH
 Bishkek|KG
 Bissau|GW
 Bogotá|CO
@@ -51,7 +51,7 @@ Brazzaville|CG
 Bucharest|RO
 Budapest|HU
 Buenos Aires|AR
-#Cairo|EG
+Cairo|EG
 Canberra|AU
 Caracas|VE
 Changsha|CN
@@ -63,44 +63,44 @@ Chongqing|CN
 Cincinnati|US
 Cleveland|US
 Columbus|US
-#Copenhagen|DK
+Copenhagen|DK
 Dakar|SN
 Dallas|US
-#Damascus|SY
+Damascus|SY
 Denver|US
 Detroit|US
 Dhaka|BD
-#Dongguan|CN
+Dongguan|CN
 Dublin|IE
 New Delhi|IN
 Dhaka|BD
 Florence|IT
 Frankfurt|DE
 Guangzhou|CN
-#Hà Nội|VN
-#Hải Phòng|VN
+Hà Nội|VN
+Hải Phòng|VN
 Havana|CU
 Helsinki|FI
-#Hồ Chí Minh City|VN
+Hồ Chí Minh City|VN
 Hong Kong|CN
 Honolulu|US
 Houston|US
 Hyderabad|IN
 Indianapolis|US
 Islamabad|PK
-#Istanbul|TR
+Istanbul|TR
 Jakarta|ID
-#Johannesburg|ZA
+Johannesburg|ZA
 Kabul|AF
 Kansas City|US
 Karachi|PK
 Kathmandu|NP
-#Kiev|UA
+Kiev|UA
 Kinshasa|CD
 Kobe|JP
-#Krakow|PL
+Krakow|PL
 Kyoto|JP
-#La Paz|BO
+La Paz|BO
 Lahore|PK
 Lagos|NG
 Las Vegas|US
@@ -126,14 +126,14 @@ Mumbai|IN
 Munich|DE
 Nagoya|JP
 Nanjing|CN
-#Naples|IT
+Naples|IT
 New York|US
 Nice|FR
 Ningbo|CN
 Nizhny Novgorod|RU
-#Noumea|FR
+Noumea|FR
 Novosibirsk|RU
-#Osaka|JP
+Osaka|JP
 Oslo|NO
 Ottawa|CA
 Palermo|IT
@@ -144,7 +144,7 @@ Portland|US
 Prague|CZ
 Pune|IN
 Quebec|CA
-#Rabat|MA
+Rabat|MA
 Reykjavík|IS
 Riga|LV
 Rio de Janeiro|BR
@@ -173,7 +173,7 @@ Taipei|TW
 Tallinn|EE
 Tbilisi|GE
 Tehran|IR
-#Thimphu|BT
+Thimphu|BT
 Tianjin|CN
 Tirana|AL
 Tokyo|JP
@@ -185,12 +185,12 @@ Venice|IT
 Vienna|AT
 Vientiane|LA
 Vilnius|LT
-#Vladivostok|RU
+Vladivostok|RU
 Warsaw|PL
-#Washington DC|US
+Washington DC|US
 Winnipeg|CA
 Wuhan|CN
 Yekaterinburg|RU
 Yerevan|AM
 Zagreb|HR
-#Zurich|CH
+Zurich|CH
