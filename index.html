@@ -396,6 +396,9 @@
     }
 
     function f(tmp_c) {
+      if (tmp_c === -9999) {
+        return -9999;
+      }
       return Math.round(1.8 * tmp_c + 32);
     }
 
