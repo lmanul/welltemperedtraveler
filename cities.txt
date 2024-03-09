@@ -21,7 +21,7 @@ Atlanta|US
 Auckland|NZ
 Augusta|US
 Austin|US
-#Avarua|CK
+Avarua|CK
 Baghdad|IQ
 Baku|AZ
 Bamako|ML
@@ -188,6 +188,7 @@ Vilnius|LT
 Vladivostok|RU
 Warsaw|PL
 Washington DC|US
+West Island|CC
 Winnipeg|CA
 Wuhan|CN
 Yekaterinburg|RU

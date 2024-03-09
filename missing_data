@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+import json
+
+from util import read_existing_data
+
+LIMIT = 20
+
+def count_missing(data):
+    missing_count = {}
+    for location in data:
+        missing_count[location] = json.dumps(data[location]).count("-9999")
+    return missing_count
+
+def main():
+    data = read_existing_data()
+    missing = count_missing(data)
+
+    i = 0
+    for location in dict(sorted(missing.items(), key=lambda item: item[1], reverse=True)):
+        print(location + ": " + str(missing[location]))
+        i += 1
+        if i >= LIMIT:
+            break
+
+if __name__ == "__main__":
+    main()

@@ -15,10 +15,12 @@ NAMES = {
     "Rome|IT": "ROMA CIAMPINO",
     # Might be more than one exact match?
     "São Paulo|BR": "SAO PAULO",
+    "West Island|CC": "COCOS ISLAND AERO",
 }
 
 NCEI_COUNTRY_CODES = {
     "BY": "BO",
+    "CC": "CK",
     "CN": "CH",
     "DE": "GM",
     "JP": "JA",
@@ -28,6 +30,7 @@ NCEI_COUNTRY_CODES = {
     "MG": "MA",
     "MN": "MG",
     "NE": "NG",
+    "NI": "NU",
     "RU": "RS",
     "SC": "SE",
     "SN": "SG",

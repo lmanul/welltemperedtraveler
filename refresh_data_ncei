@@ -9,14 +9,11 @@ import random
 import sys
 
 from ncei_station_names import NAMES, NCEI_COUNTRY_CODES
-from util import read_existing_data, read_cities
+from util import read_existing_data, read_cities, write_out
 
-DATA_FILE = "data.txt"
 DATA_DIR = os.path.expanduser("~/gsom-latest")
 KEYS = ["TMIN", "TAVG", "TMAX", "PRCP"]
 SPAN_YEARS = 10
-
-DATA = {}
 
 def find_csv_files_for_city(city, country_code):
     key = city + "|" + country_code
@@ -78,7 +75,7 @@ def reduce(data):
 
     return reduced
 
-def refresh_data_for_one_city(city, country_code):
+def refresh_data_for_one_city(DATA, city, country_code):
     print("Getting data for " + city + ", " + country_code + "...")
     result = {}
     csvf = find_csv_files_for_city(city, country_code)
@@ -117,17 +114,10 @@ def refresh_data_for_one_city(city, country_code):
         reduced = reduce(result)
         serialized = json.dumps(reduced)
         missing = serialized.count("-9999")
-        if missing < 5:
+        if missing < 40:
             DATA[city + "|" + country_code] = reduced
         else:
             print(str(missing) + " missing data points, not updating")
-
-def write_out(master_data, data_file):
-    serialized = ""
-    for location in sorted(master_data.keys()):
-        serialized += location + ":" + json.dumps(master_data[location], sort_keys=True) + "\n"
-        with open(data_file, "w") as f:
-            f.write(serialized)
 
 def main():
     chosen = None
@@ -140,8 +130,8 @@ def main():
         (city, country) = chosen.split("|")
     else:
         (city, country) = locations[index].split("|")
-    refresh_data_for_one_city(city, country)
-    write_out(DATA, DATA_FILE)
+    refresh_data_for_one_city(DATA, city, country)
+    write_out(DATA, "data.txt")
 
 if __name__ == "__main__":
     main()
