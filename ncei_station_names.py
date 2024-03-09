@@ -1,5 +1,6 @@
 NAMES = {
     "Atlanta|US": "ATLANTA NAS, G",
+    "Berlin|DE": "BERLIN BUCH",
     "Bogotá|CO": "BOGOTA ELDORADO",
     "Brasília|BR": "BRASILIA",
     "Bridgetown|BB": "GRANTLEY ADAMS",
@@ -14,7 +15,7 @@ NAMES = {
     "Pittsburgh|US": "PITTSBURGH INTERNATIONAL AIRPORT, P",
     "Rome|IT": "ROMA CIAMPINO",
     # Might be more than one exact match?
-    "São Paulo|BR": "SAO PAULO",
+    "São Paulo|BR": "SAO PAULO DO POTENGI",
     "West Island|CC": "COCOS ISLAND AERO",
 }
 
@@ -23,6 +24,7 @@ NCEI_COUNTRY_CODES = {
     "CC": "CK",
     "CN": "CH",
     "DE": "GM",
+    "ES": "SP",
     "JP": "JA",
     "KI": "KR",
     "LS": "LT",
@@ -34,5 +36,6 @@ NCEI_COUNTRY_CODES = {
     "RU": "RS",
     "SC": "SE",
     "SN": "SG",
+    "SV": "ES",
     "TD": "CD",
 }

@@ -114,7 +114,7 @@ def refresh_data_for_one_city(DATA, city, country_code):
         reduced = reduce(result)
         serialized = json.dumps(reduced)
         missing = serialized.count("-9999")
-        if missing < 40:
+        if missing < 5:
             DATA[city + "|" + country_code] = reduced
         else:
             print(str(missing) + " missing data points, not updating")
@@ -125,10 +125,10 @@ def main():
         chosen = sys.argv[1]
     DATA = read_existing_data()
     locations = sorted(read_cities())
-    index = int(random.random() * len(locations))
     if chosen:
         (city, country) = chosen.split("|")
     else:
+        index = int(random.random() * len(locations))
         (city, country) = locations[index].split("|")
     refresh_data_for_one_city(DATA, city, country)
     write_out(DATA, "data.txt")
