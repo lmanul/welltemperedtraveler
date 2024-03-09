@@ -43,11 +43,11 @@ Bissau|GW
 Bogotá|CO
 Boston|US
 Boulder|US
-#Brasília|BR
+Brasília|BR
 Bratislava|SK
 Brazzaville|CG
-#Brussels|BE
-#Bridgetown|BB
+Brussels|BE
+Bridgetown|BB
 Bucharest|RO
 Budapest|HU
 Buenos Aires|AR
@@ -143,7 +143,7 @@ Pittsburgh|US
 Portland|US
 Prague|CZ
 Pune|IN
-Quebec|CA
+Quebec City|CA
 Rabat|MA
 Reykjavík|IS
 Riga|LV
