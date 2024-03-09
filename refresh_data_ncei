@@ -9,7 +9,7 @@ import random
 import sys
 
 from ncei_station_names import NAMES, NCEI_COUNTRY_CODES
-from util import read_existing_data
+from util import read_existing_data, read_cities
 
 DATA_FILE = "data.txt"
 DATA_DIR = os.path.expanduser("~/gsom-latest")
@@ -121,11 +121,6 @@ def refresh_data_for_one_city(city, country_code):
             DATA[city + "|" + country_code] = reduced
         else:
             print(str(missing) + " missing data points, not updating")
-
-def read_cities():
-    with open("cities.txt", "r") as f:
-        lines = f.readlines()
-        return [l.strip() for l in lines]
 
 def write_out(master_data, data_file):
     serialized = ""
