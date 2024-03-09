@@ -4,6 +4,7 @@ NAMES = {
     # Might need to combine with CAIRO EZBEKIYA
     "Cairo|EG": "CAIRO ABBASSIA",
     "Frankfurt|DE": "FRANKFURT MAIN STADT",
+    "Los Angeles|US": "LOS ANGELES DOWNTOWN USC, C",
     "Quebec City|CA": "QUEBEC, Q",
     "Pittsburgh|US": "PITTSBURGH INTERNATIONAL AIRPORT, P",
     "Rome|IT": "ROMA CIAMPINO",
