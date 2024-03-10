@@ -22,6 +22,7 @@ NAMES = {
 NCEI_COUNTRY_CODES = {
     "BY": "BO",
     "CC": "CK",
+    "CF": "CG",
     "CN": "CH",
     "DE": "GM",
     "ES": "SP",
